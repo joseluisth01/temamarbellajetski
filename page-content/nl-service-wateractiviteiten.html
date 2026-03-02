@@ -1,0 +1,192 @@
+<style>
+.cat-hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:url('/wp-content/themes/marbellajetski/assets/media/photos/wp-uploads/18328-mar-scaled.webp') center/cover no-repeat;padding:120px 20px 80px;text-align:center}
+.cat-hero-video{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+.cat-hero-video video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover}
+.cat-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(2,6,30,.6) 0%,rgba(2,20,60,.5) 50%,rgba(2,6,30,.7) 100%);z-index:1}
+.cat-hero-content{position:relative;z-index:2;max-width:800px}
+.cat-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 20px;margin-bottom:20px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.cat-hero-content h1{font-family:var(--font-display);font-size:clamp(32px,5.5vw,64px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px}
+.cat-hero-content h1 span{color:var(--primary)}
+.cat-hero-content p{color:rgba(255,255,255,.75);font-size:16px;line-height:1.7;max-width:600px;margin:0 auto 30px}
+.cat-hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cat-hero-actions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gradient-primary);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.cat-hero-actions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
+.cat-hero-actions .btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;transition:background .2s}
+.cat-hero-actions .btn-secondary:hover{background:rgba(255,255,255,.12)}
+.cat-grid-section{padding:80px 20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-grid-header{text-align:center;margin-bottom:50px}
+.cat-grid-header h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff}
+.cat-grid-header h2 span{color:var(--primary)}
+.cat-grid-header p{color:rgba(255,255,255,.6);font-size:16px;max-width:600px;margin:12px auto 0}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:1100px;margin:0 auto}
+.cat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.cat-card img{width:100%;height:200px;object-fit:cover}
+.cat-card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.cat-card-body h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.cat-card-body p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6;margin-bottom:16px;flex:1}
+.cat-card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-top:auto}
+.cat-card-price{font-size:20px;font-weight:800;color:#fff}
+.cat-card-price small{font-size:12px;font-weight:400;color:rgba(255,255,255,.5)}
+.cat-card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gradient-primary);color:#fff;padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .2s}
+.cat-card-btn:hover{transform:translateY(-2px)}
+.cat-sub-label{max-width:1100px;margin:0 auto 24px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff}
+.cat-sub-label i{color:var(--primary);margin-right:8px}
+.cat-why-section{padding:80px 20px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a1a 100%)}
+.cat-why-section h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;text-align:center;margin-bottom:50px}
+.cat-why-section h2 span{color:var(--primary)}
+.cat-why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.cat-why-card{text-align:center;padding:32px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.cat-why-card i{font-size:32px;color:var(--primary);margin-bottom:16px}
+.cat-why-card h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:8px}
+.cat-why-card p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6}
+.cat-cta-section{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-cta-section h2{font-family:var(--font-display);font-size:32px;font-weight:800;color:#fff;margin-bottom:16px}
+.cat-cta-section p{color:rgba(255,255,255,.65);font-size:16px;max-width:500px;margin:0 auto 30px}
+@media(max-width:768px){.cat-hero-content h1{font-size:32px}.cat-hero-content p{font-size:15px}.cat-hero{padding:120px 16px 60px;min-height:100vh;min-height:100dvh}.cat-hero-video{display:none}.cat-hero-overlay{background:linear-gradient(180deg,rgba(2,6,30,.8) 0%,rgba(2,20,60,.7) 35%,rgba(2,20,60,.7) 65%,rgba(2,6,30,.85) 100%)}.cat-grid-header h2,.cat-why-section h2,.cat-cta-section h2{font-size:28px}.cat-sub-label{font-size:18px}}
+</style>
+
+<section class="cat-hero">
+    <div class="cat-hero-video">
+        <video autoplay muted loop playsinline><source src="/wp-content/themes/marbellajetski/assets/media/hero-video.mp4" type="video/mp4"></video>
+    </div>
+    <div class="cat-hero-overlay"></div>
+    <div class="cat-hero-content">
+        <div class="cat-hero-badge"><i class="fas fa-umbrella-beach"></i> Wateractiviteiten</div>
+        <h1>Water<span>activiteiten</span> in Marbella</h1>
+        <p>De beste sleepband-ritten, watersporten en leuke ervaringen aan de Costa del Sol. Perfect voor gezinnen, groepen en avonturiers van alle leeftijden.</p>
+        <div class="cat-hero-actions">
+            <a href="/nl/reserveren/" class="btn-primary"><i class="fas fa-calendar-check"></i> Boeken</a>
+            <a href="https://api.whatsapp.com/send?phone=34655442232&text=Hallo!%20Ik%20wil%20graag%20meer%20weten%20over%20wateractiviteiten." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Neem Contact Op</a>
+        </div>
+    </div>
+</section>
+
+<section class="cat-grid-section">
+    <div class="cat-grid-header">
+        <h2>Kies Jouw <span>Wateravontuur</span></h2>
+        <p>Spannende sleepbanden en watersporten voor iedereen — van rustige waterfietsen tot hoge-snelheid ervaringen.</p>
+    </div>
+
+    <div class="cat-grid" style="margin-bottom:50px;">
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/banana-boat.png" alt="Banana Boat" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Banana Boat</h3>
+                <p>Stap op met tot 6 vrienden en hou je vast terwijl je over de golven stuitert op deze klassieke opblaasboot.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ persoon</small></div>
+                    <a href="/nl/banana-boat/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/crazy-sofa.webp" alt="Crazy Sofa" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Crazy Sofa</h3>
+                <p>De wildste sleepband op zee! Ga zitten en laat je met hoge snelheid voortslepen met scherpe bochten en grote spatten.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ persoon</small></div>
+                    <a href="/nl/crazy-sofa/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/donut.webp" alt="Donut Rit" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Donut Rit</h3>
+                <p>Draai, stuiter en vlieg over de golven op een gigantische opblaasbare donut. Een van de leukste ervaringen voor groepen.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ persoon</small></div>
+                    <a href="/nl/donut-watersport/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/water-bull.webp" alt="Water Bull" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Water Bull</h3>
+                <p>Rijd de mechanische stier van de zee! Hou je vast terwijl de sleepband draait en springt. Pure adrenaline en gegarandeerd lachen.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ persoon</small></div>
+                    <a href="/nl/water-bull/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/air-stream.jpg" alt="Air Stream" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Air Stream</h3>
+                <p>Vlieg door de lucht op deze hoge-snelheid sleepband die van het water opstijgt. De ultieme adrenaline waterervaring in Marbella.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ persoon</small></div>
+                    <a href="/nl/air-stream-marbella/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/paddle-surf.png" alt="Stand-Up Paddleboard" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Stand-Up Paddleboard</h3>
+                <p>Glijd over kristalhelder water op een SUP board. Een ontspannende manier om de kustlijn te verkennen.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ uur</small></div>
+                    <a href="/nl/paddleboard-marbella/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/water-skiing.jpg" alt="Waterski&euml;n" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Waterski&euml;n</h3>
+                <p>Leer waterski&euml;n of laat je vaardigheden zien met professionele instructeurs. Alle apparatuur inbegrepen.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;80 <small>/ sessie</small></div>
+                    <a href="/nl/waterskien/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/wakeboard.jpg" alt="Wakeboarden" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Wakeboarden</h3>
+                <p>Surf door het kielzog achter onze speedboot. Van je eerste poging tot sprongen, onze instructeurs begeleiden je.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;80 <small>/ sessie</small></div>
+                    <a href="/nl/wakeboarden/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/pedal-boat.jpg" alt="Waterfiets" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Waterfiets</h3>
+                <p>Een ontspannende gezinsactiviteit. Trap langs de kust op je eigen tempo en geniet van de Mediterrane zon.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">&euro;20 <small>/ uur</small></div>
+                    <a href="/nl/waterfiets/" class="cat-card-btn">Bekijk <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.5);margin-top:18px;"><i class="fas fa-receipt" style="margin-right:5px;color:#00b4d8;opacity:.7;"></i>Alle prijzen zijn inclusief btw (IVA). Vanaf prijs.</p>
+</section>
+
+<section class="cat-why-section">
+    <h2>Waarom Jouw <span>Wateravontuur</span> Bij Ons Boeken?</h2>
+    <div class="cat-why-grid">
+        <div class="cat-why-card"><i class="fas fa-child"></i><h4>Plezier voor Iedereen</h4><p>Activiteiten vanaf 4 jaar. Reddingsvesten en veiligheidsbriefing inbegrepen.</p></div>
+        <div class="cat-why-card"><i class="fas fa-bolt"></i><h4>Nieuwste Materiaal</h4><p>Gloednieuwe sleepbanden, boards en boten. Wij investeren in het beste materiaal.</p></div>
+        <div class="cat-why-card"><i class="fas fa-tags"></i><h4>Multi-Avontuur Pakketten</h4><p>Combineer meerdere activiteiten en bespaar! Vraag naar onze groepspakketten.</p></div>
+        <div class="cat-why-card"><i class="fas fa-star"></i><h4>5-Sterren Reviews</h4><p>Uitstekend beoordeeld op Google met honderden 5-sterren reviews.</p></div>
+    </div>
+</section>
+
+<section class="cat-cta-section">
+    <h2>Klaar voor Plezier op het Water?</h2>
+    <p>Boek je wateractiviteit vandaag en maak onvergetelijke herinneringen in Marbella.</p>
+    <div class="cat-hero-actions">
+        <a href="/nl/reserveren/" class="btn-primary"><i class="fas fa-calendar-check"></i> Boeken</a>
+        <a href="https://api.whatsapp.com/send?phone=34655442232&text=Hallo!%20Ik%20wil%20graag%20wateractiviteiten%20boeken." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+</section>

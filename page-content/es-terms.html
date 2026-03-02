@@ -1,0 +1,540 @@
+<style>
+        .legal-hero {
+            background: linear-gradient(135deg, #03045e 0%, #0077b6 50%, #00b4d8 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .legal-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5.5vw, 64px);
+            margin-bottom: 15px;
+        }
+        .legal-hero p {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+
+        .legal-nav {
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .legal-nav-inner {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .legal-nav a {
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .legal-nav a:hover, .legal-nav a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .legal-main {
+            padding: 60px 0 100px;
+            background: #f8fbfe;
+        }
+        .legal-content {
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        .legal-section {
+            background: white;
+            border-radius: 16px;
+            padding: 45px 50px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+        }
+
+        .legal-section h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .legal-section h3 {
+            font-size: 1.15rem;
+            color: var(--dark);
+            margin: 30px 0 12px;
+        }
+        .legal-section h4 {
+            font-size: 1rem;
+            color: var(--gray-700);
+            margin: 20px 0 8px;
+        }
+        .legal-section p, .legal-section li {
+            font-size: 0.92rem;
+            color: var(--gray-600);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .legal-section ul, .legal-section ol {
+            padding-left: 24px;
+            margin-bottom: 15px;
+        }
+        .legal-section li { margin-bottom: 6px; }
+        .legal-section a { color: var(--primary); }
+        .legal-section strong { color: var(--gray-800); }
+
+        .company-info {
+            background: var(--gray-100);
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 20px 0;
+        }
+        .company-info p {
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 180, 216, 0.06);
+            border-left: 4px solid var(--primary);
+            padding: 20px 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+        .highlight-box p { margin-bottom: 0; }
+
+        .last-updated {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--gray-400);
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .legal-section { padding: 30px 25px; }
+            .legal-hero h1 { font-size: 2rem; }
+        }
+    </style>
+
+<!-- Hero -->
+    <section class="legal-hero">
+        <div class="container">
+            <h1>Términos y Condiciones</h1>
+            <p>Políticas, condiciones de servicio e información legal de Marbella JetSki</p>
+        </div>
+    </section>
+
+    <!-- Legal Navigation -->
+    <div class="legal-nav">
+        <div class="container">
+            <div class="legal-nav-inner">
+                <a href="#legal-notice" class="active">Aviso Legal</a>
+                <a href="#terms">Condiciones Generales</a>
+                <a href="#cancellation">Política de Cancelación</a>
+                <a href="#privacy">Política de Privacidad</a>
+                <a href="#photography">Política de Fotografía</a>
+                    <a href="#cookies">Política de Cookies</a>
+                <a href="#safety">Normas de Seguridad</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legal Content -->
+    <section class="legal-main">
+        <div class="container">
+            <div class="legal-content">
+                <p class="last-updated">Última actualización: enero 2026</p>
+
+                <!-- ==================== AVISO LEGAL ==================== -->
+                <div class="legal-section" id="legal-notice">
+                    <h2><i class="fas fa-gavel"></i> Aviso Legal</h2>
+                    <p>En cumplimiento del Artículo 10 de la <strong>Ley 34/2002, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE)</strong>, se facilita la siguiente información:</p>
+
+                    <div class="company-info">
+                        <p><strong>Denominación Social:</strong> STIERS E HIJOS S.L.</p>
+                        <p><strong>Nombre Comercial:</strong> MARBELLA JET SKI</p>
+                        <p><strong>NIF/CIF:</strong> B92917178</p>
+                        <p><strong>Ubicación Operativa:</strong> Playa de las Dunas, Urbanización Pinomar, 29604 Marbella, Málaga</p>
+                        <p><strong>Teléfono:</strong> <a href="tel:+34655442232">+34 655 442 232</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a></p>
+                        <p><strong>Página Web:</strong> <a href="/es/">www.marbellajetski.com</a></p>
+                        <p><strong>Actividad:</strong> Actividades de Recreo Acuático</p>
+                        <p><strong>Certificaciones:</strong> ISO 9001:2015 (Gestión de Calidad), ISO 14001:2015 (Gestión Ambiental) — Certificado por OCA Global</p>
+                    </div>
+
+                    <h3>Finalidad</h3>
+                    <p>Este sitio web pone a disposición de los usuarios los servicios y la información sobre las actividades de recreo acuático ofrecidas por STIERS E HIJOS S.L. Cualquier persona que acceda a este sitio web asume la condición de usuario y se compromete al cumplimiento riguroso de las disposiciones aquí establecidas.</p>
+
+                    <h3>Propiedad Intelectual</h3>
+                    <p>El sitio web, incluyendo pero no limitándose a su programación, edición, compilación y demás elementos necesarios para su funcionamiento, así como los diseños, logotipos, textos y gráficos, son propiedad del prestador o se han licenciado conforme a derecho. Todos los contenidos están debidamente protegidos por las normas de propiedad intelectual e industrial.</p>
+                    <p>La reproducción, uso, explotación, distribución o comercialización total o parcial requiere la autorización previa por escrito del prestador.</p>
+
+                    <h3>Responsabilidad</h3>
+                    <p>El prestador queda exento de cualquier responsabilidad derivada de la información publicada en este sitio web, siempre que dicha información haya sido manipulada o introducida por un tercero. Los enlaces a sitios web de terceros se proporcionan únicamente a título informativo; el prestador no asume responsabilidad alguna por su contenido.</p>
+
+                    <h3>Legislación Aplicable y Jurisdicción</h3>
+                    <p>Para la resolución de todas las controversias relacionadas con este sitio web, será de aplicación la <strong>legislación española</strong>. Los tribunales competentes serán los <strong>Juzgados y Tribunales de Marbella</strong>.</p>
+                </div>
+
+                <!-- ==================== CONDICIONES GENERALES ==================== -->
+                <div class="legal-section" id="terms">
+                    <h2><i class="fas fa-file-contract"></i> Condiciones Generales</h2>
+                    <p>Estas condiciones regulan la reserva y prestación de servicios de deportes acuáticos por parte de STIERS E HIJOS S.L., que opera como Marbella JetSki. Al realizar una reserva, usted acepta estas condiciones en su totalidad.</p>
+
+                    <h3>1. Prestador de Servicios</h3>
+                    <p>STIERS E HIJOS S.L., NIF B92917178, operando como "Marbella JetSki" en Playa de las Dunas, Urbanización Pinomar, 29604 Marbella, Málaga, España.</p>
+
+                    <h3>2. Reserva</h3>
+                    <ul>
+                        <li>Las reservas pueden realizarse a través de nuestra web, WhatsApp (+34 655 442 232), teléfono o en persona en nuestra ubicación de playa.</li>
+                        <li>Una reserva se confirma únicamente tras la recepción de confirmación por parte de nuestro equipo (vía WhatsApp, email o número de referencia de reserva).</li>
+                        <li>Nos reservamos el derecho de rechazar reservas a nuestra discreción, incluyendo por razones de seguridad.</li>
+                        <li>Para alquiler de barcos y yates, se requiere un depósito del 20% en el momento de la reserva. El 80% restante se paga a la llegada antes del inicio de la actividad.</li>
+                        <li>Para alquiler de motos de agua, deportes acuáticos y clases de racing, se requiere el pago completo (100%) en el momento de la reserva.</li>
+                    </ul>
+
+                    <h3>3. Precios</h3>
+                    <ul>
+                        <li>Todos los precios mostrados están en Euros (€) e incluyen los impuestos aplicables (IVA).</li>
+                        <li>Los precios están sujetos a cambios sin previo aviso. El precio aplicable será el publicado en el momento de la confirmación de la reserva.</li>
+                        <li>Las actividades por persona (banana boat, crazy sofa, donut ride, etc.) se cobran por participante.</li>
+                        <li>Las tarifas de chárter de yates incluyen: capitán profesional, combustible, refrescos (incluido vino) y paddleboard.</li>
+                    </ul>
+
+                    <h3>4. Métodos de Pago</h3>
+                    <p>Aceptamos los siguientes métodos de pago:</p>
+                    <ul>
+                        <li>Tarjetas de crédito/débito (Visa, Mastercard)</li>
+                        <li>Efectivo (solo en el lugar)</li>
+                    </ul>
+                    <p>Todos los pagos en línea se procesan a través de pasarelas de pago seguras, compatibles con PCI-DSS, con cifrado SSL de 256 bits.</p>
+
+                    <h3>5. Requisitos de Edad</h3>
+                    <ul>
+                        <li><strong>Moto de agua:</strong> Mínimo 18 años. Los participantes de 16-17 años pueden conducir con el formulario de consentimiento firmado por un padre/tutor legal.</li>
+                        <li><strong>Deportes acuáticos (remolcables):</strong> La edad mínima varía según la actividad. Los menores deben estar acompañados por un adulto responsable.</li>
+                        <li><strong>Hidropedales:</strong> Se admiten niños acompañados de un adulto.</li>
+                        <li><strong>Chárter de yates:</strong> Sin restricción de edad para los pasajeros. Sin embargo, la reserva debe ser realizada por una persona mayor de 18 años.</li>
+                    </ul>
+
+                    <h3>6. Requisitos del Participante</h3>
+                    <ul>
+                        <li>Se requiere identificación con foto válida (pasaporte o DNI) para todos los pilotos de motos de agua.</li>
+                        <li>Todos los participantes deben completar una sesión informativa de seguridad antes de iniciar cualquier actividad.</li>
+                        <li>Los participantes deben estar en buen estado de salud física y libres de condiciones que puedan agravarse con las actividades de deportes acuáticos.</li>
+                        <li>Los participantes no deben estar bajo la influencia de alcohol o drogas.</li>
+                        <li>Está <strong>prohibido llevar un teléfono móvil</strong> al agua durante las actividades.</li>
+                    </ul>
+
+                    <h3>7. Seguro</h3>
+                    <p>Todas las actividades están cubiertas por un <strong>Seguro de Responsabilidad Civil</strong>. Este seguro cubre lesiones a terceros y daños materiales causados durante el uso normal de nuestro equipamiento. No cubre lesiones derivadas de la negligencia del participante, el incumplimiento de las normas de seguridad o la falta de seguimiento de las instrucciones del personal.</p>
+
+                    <h3>8. Equipamiento y Daños</h3>
+                    <ul>
+                        <li>Los participantes aceptan que reciben todo el equipamiento (moto de agua, barco, etc.) en perfecto estado de funcionamiento y están obligados a devolverlo en las mismas condiciones.</li>
+                        <li>En caso de daños accidentales causados por negligencia o incumplimiento de las normas, el participante deberá cubrir los costes de reparación a precios de mercado vigentes.</li>
+                        <li><strong>Pérdida de llaves:</strong> Se aplica un cargo de 25 € por la pérdida de llaves de la moto de agua.</li>
+                        <li>Todo el equipamiento se somete a una <strong>inspección mecánica diaria</strong> y posee la certificación ITB (Inspección Técnica de Barcos) vigente.</li>
+                    </ul>
+
+                    <h3>9. Condiciones Meteorológicas</h3>
+                    <p>La seguridad es nuestra prioridad. Monitorizamos las condiciones meteorológicas a través de AEMET (Agencia Estatal de Meteorología) y los servicios de Puertos del Estado. Si las condiciones se consideran inseguras:</p>
+                    <ul>
+                        <li>Reprogramaremos su reserva para una fecha alternativa sin coste alguno.</li>
+                        <li>Si la reprogramación no es posible, se emitirá un <strong>reembolso completo</strong>.</li>
+                        <li>La decisión de cancelar por motivos meteorológicos es tomada exclusivamente por nuestro personal cualificado y es definitiva.</li>
+                    </ul>
+
+                    <h3>10. Limitación de Responsabilidad</h3>
+                    <p>STIERS E HIJOS S.L. <strong>no es responsable</strong> de ninguna lesión o daño causado por:</p>
+                    <ul>
+                        <li>El incumplimiento por parte del participante de las instrucciones o normas de seguridad.</li>
+                        <li>Comportamiento imprudente o negligente durante las actividades.</li>
+                        <li>Condiciones médicas preexistentes no comunicadas antes de la actividad.</li>
+                        <li>Pertenencias personales perdidas o dañadas durante las actividades.</li>
+                    </ul>
+                    <p>Esta limitación no se aplica a la responsabilidad que no pueda excluirse en virtud de la legislación española de protección al consumidor aplicable (Real Decreto Legislativo 1/2007).</p>
+
+                    <h3>11. Derechos del Consumidor</h3>
+                    <p>De conformidad con el <strong>Real Decreto Legislativo 1/2007</strong> (Ley General para la Defensa de los Consumidores y Usuarios), los consumidores tienen derecho a:</p>
+                    <ul>
+                        <li>Información clara y precisa sobre servicios y precios antes de la compra.</li>
+                        <li>Una confirmación escrita de la reserva con todos los detalles relevantes.</li>
+                        <li>El derecho a presentar reclamaciones a través de los canales oficiales.</li>
+                    </ul>
+                    <p>Nota: El derecho de desistimiento (período de reflexión de 14 días) no se aplica a los servicios de ocio prestados en una fecha determinada, conforme al Artículo 103(l) de la Directiva de Derechos de los Consumidores (Directiva 2011/83/UE), según la transposición al derecho español.</p>
+
+                    <h3>12. Reclamaciones</h3>
+                    <p>Nos comprometemos a resolver cualquier reclamación con prontitud. Puede dirigir sus reclamaciones a:</p>
+                    <ul>
+                        <li>Email: <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a></li>
+                        <li>Teléfono: <a href="tel:+34655442232">+34 655 442 232</a></li>
+                        <li>Por escrito a nuestra ubicación operativa.</li>
+                    </ul>
+                    <p>Las hojas de reclamaciones están disponibles en nuestra ubicación de playa según lo exigido por la normativa andaluza de protección al consumidor (Decreto 72/2008).</p>
+                </div>
+
+                <!-- ==================== POLÍTICA DE CANCELACIÓN Y REEMBOLSO ==================== -->
+                <div class="legal-section" id="cancellation">
+                    <h2><i class="fas fa-undo"></i> Política de Cancelación y Reembolso</h2>
+
+                    <div class="highlight-box">
+                        <p><strong>Resumen:</strong> Cancelación con más de 24 horas = reembolso completo. Cancelación por meteorología = reembolso completo. Menos de 24 horas = cargo del 50%. No presentarse = sin reembolso.</p>
+                    </div>
+
+                    <h3>1. Cancelaciones Iniciadas por el Cliente</h3>
+                    <ul>
+                        <li><strong>Más de 24 horas antes de la actividad:</strong> Reembolso completo de cualquier cantidad pagada, o reprogramación gratuita a otra fecha.</li>
+                        <li><strong>Menos de 24 horas pero más de 2 horas:</strong> Se cobrará el 50% del importe de la reserva. Se reembolsará el resto.</li>
+                        <li><strong>Menos de 2 horas antes o no presentarse:</strong> No se emitirá reembolso. Se perderá el importe total de la reserva.</li>
+                    </ul>
+
+                    <h3>2. Cancelaciones por Condiciones Meteorológicas</h3>
+                    <p>Si cancelamos una actividad por condiciones meteorológicas adversas (según lo determinado por nuestro personal cualificado basándose en datos de AEMET):</p>
+                    <ul>
+                        <li><strong>Reembolso del 100%</strong> de todas las cantidades pagadas, O</li>
+                        <li>Reprogramación gratuita a una fecha alternativa (sujeto a disponibilidad).</li>
+                    </ul>
+
+                    <h3>3. Cancelaciones Iniciadas por la Empresa</h3>
+                    <p>En el improbable caso de que debamos cancelar por razones operativas (avería de equipamiento, personal, etc.), los clientes recibirán un <strong>reembolso completo</strong> o la opción de reprogramar.</p>
+
+                    <h3>4. Procesamiento de Reembolsos</h3>
+                    <ul>
+                        <li>Los reembolsos se procesan al método de pago original.</li>
+                        <li>Los reembolsos con tarjeta pueden tardar entre 5 y 10 días hábiles en aparecer en su extracto.</li>
+                        <li>Los reembolsos en efectivo están disponibles en nuestra ubicación de playa durante el horario comercial.</li>
+                    </ul>
+
+                    <h3>5. Modificaciones</h3>
+                    <p>Los cambios en la fecha, hora o tipo de actividad de la reserva pueden realizarse de forma gratuita hasta 24 horas antes de la actividad programada, sujeto a disponibilidad. Contáctenos por WhatsApp o teléfono para realizar cambios.</p>
+
+                    <h3>6. Llegadas Tardías</h3>
+                    <p>Si llega tarde a su actividad programada, la duración de la sesión se reducirá en consecuencia. No se emitirá reembolso por el tiempo perdido debido a la llegada tardía. Si llega más de 30 minutos tarde, la reserva podrá considerarse como no presentación.</p>
+                </div>
+
+                <!-- ==================== POLÍTICA DE PRIVACIDAD ==================== -->
+                <div class="legal-section" id="privacy">
+                    <h2><i class="fas fa-user-shield"></i> Política de Privacidad</h2>
+                    <p>Esta política está diseñada de conformidad con el <strong>Reglamento (UE) 2016/679</strong> (Reglamento General de Protección de Datos — RGPD) y la <strong>Ley Orgánica 3/2018</strong> (LOPD-GDD — Ley de Protección de Datos Personales y Garantía de los Derechos Digitales).</p>
+
+                    <h3>1. Responsable del Tratamiento</h3>
+                    <div class="company-info">
+                        <p><strong>Responsable:</strong> STIERS E HIJOS S.L.</p>
+                        <p><strong>NIF:</strong> B92917178</p>
+                        <p><strong>Dirección:</strong> Playa de las Dunas, Urbanización Pinomar, 29604 Marbella, Málaga</p>
+                        <p><strong>Email (protección de datos):</strong> <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a></p>
+                        <p><strong>Delegado de Protección de Datos:</strong> No designado (no requerido según los criterios del Art. 37 del RGPD).</p>
+                    </div>
+
+                    <h3>2. Datos que Recopilamos</h3>
+                    <p>Recopilamos las siguientes categorías de datos personales:</p>
+                    <ul>
+                        <li><strong>Datos de identidad:</strong> Nombre, apellidos, fecha de nacimiento, número de DNI/pasaporte</li>
+                        <li><strong>Datos de contacto:</strong> Dirección de email, número de teléfono, dirección postal</li>
+                        <li><strong>Datos de reserva:</strong> Actividad seleccionada, fechas, preferencias, información de pago</li>
+                        <li><strong>Datos técnicos:</strong> Dirección IP, tipo de navegador, información del dispositivo (recopilados automáticamente)</li>
+                        <li><strong>Datos de medios:</strong> Fotografías y vídeos tomados durante las actividades (con consentimiento)</li>
+                    </ul>
+
+                    <h3>3. Finalidad del Tratamiento</h3>
+                    <p>Sus datos personales se tratan con las siguientes finalidades:</p>
+                    <ul>
+                        <li>Prestación de servicios de recreo acuático (gestión de reservas, cumplimiento de seguridad)</li>
+                        <li>Cumplimiento de obligaciones legales (formalización de contratos, registros fiscales, normativa de seguridad marítima)</li>
+                        <li>Envío de información sobre productos y servicios (solo con consentimiento explícito)</li>
+                        <li>Mejora de nuestro sitio web y la experiencia del cliente</li>
+                    </ul>
+
+                    <h3>4. Base Legal</h3>
+                    <ul>
+                        <li><strong>Ejecución de contrato:</strong> Tratamiento necesario para la prestación del servicio reservado (Art. 6.1.b RGPD)</li>
+                        <li><strong>Obligación legal:</strong> Normativa fiscal, de seguridad marítima y de protección al consumidor (Art. 6.1.c RGPD)</li>
+                        <li><strong>Consentimiento:</strong> Comunicaciones de marketing y medios fotográficos/audiovisuales (Art. 6.1.a RGPD)</li>
+                        <li><strong>Interés legítimo:</strong> Analítica web y prevención de fraude (Art. 6.1.f RGPD)</li>
+                    </ul>
+
+                    <h3>5. Conservación de Datos</h3>
+                    <ul>
+                        <li>Datos de reserva y contrato: conservados durante 3 años desde la fecha del último servicio, o según lo exigido por la legislación fiscal (6 años según el Código de Comercio español).</li>
+                        <li>Datos basados en consentimiento: hasta la retirada del consentimiento.</li>
+                        <li>Datos técnicos/analíticos: 26 meses como máximo.</li>
+                    </ul>
+
+                    <h3>6. Comunicación de Datos</h3>
+                    <p>No vendemos sus datos personales. Los datos podrán ser comunicados a:</p>
+                    <ul>
+                        <li>Procesadores de pagos (para el procesamiento de transacciones, conforme a PCI-DSS)</li>
+                        <li>Autoridades fiscales (según lo exigido por la legislación fiscal española)</li>
+                        <li>Compañías de seguros (en caso de incidente o reclamación)</li>
+                        <li>Fuerzas y cuerpos de seguridad (cuando lo requiera una orden judicial)</li>
+                    </ul>
+                    <p>No se realizan transferencias internacionales de datos fuera del EEE salvo que estén adecuadamente protegidas conforme al Capítulo V del RGPD.</p>
+
+                    <h3>7. Sus Derechos</h3>
+                    <p>En virtud del RGPD y la LOPD-GDD, usted tiene los siguientes derechos:</p>
+                    <ul>
+                        <li><strong>Derecho de acceso</strong> — obtener confirmación de qué datos tenemos sobre usted</li>
+                        <li><strong>Derecho de rectificación</strong> — corregir datos inexactos</li>
+                        <li><strong>Derecho de supresión</strong> — solicitar la eliminación de sus datos ("derecho al olvido")</li>
+                        <li><strong>Derecho de limitación</strong> — limitar cómo tratamos sus datos</li>
+                        <li><strong>Derecho a la portabilidad</strong> — recibir sus datos en un formato portátil</li>
+                        <li><strong>Derecho de oposición</strong> — oponerse al tratamiento basado en intereses legítimos o marketing</li>
+                        <li><strong>Derecho a retirar el consentimiento</strong> — retirar su consentimiento en cualquier momento sin afectar a la licitud del tratamiento previo</li>
+                    </ul>
+                    <p>Para ejercer sus derechos, contacte con nosotros en <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a> o por teléfono al +34 655 442 232. Por favor, incluya una copia de su DNI/pasaporte para verificación.</p>
+                    <p>También tiene derecho a presentar una reclamación ante la <strong>Agencia Española de Protección de Datos (AEPD)</strong> — <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>.</p>
+
+                    <h3>8. Medidas de Seguridad</h3>
+                    <p>Hemos implementado las medidas técnicas y organizativas adecuadas para proteger sus datos personales, incluyendo:</p>
+                    <ul>
+                        <li>Cifrado SSL/TLS para toda la transmisión de datos</li>
+                        <li>Controles de acceso y sistemas de autenticación</li>
+                        <li>Evaluaciones de seguridad periódicas</li>
+                        <li>Formación del personal en protección de datos</li>
+                    </ul>
+                </div>
+
+                <!-- ==================== POLÍTICA DE COOKIES ==================== -->
+                
+                <!-- ==================== POLÍTICA DE FOTOGRAFÍA Y VÍDEO ==================== -->
+                <div class="legal-section" id="photography">
+                    <h2><i class="fas fa-camera"></i> Política de Fotografía y Grabación de Vídeo</h2>
+                    <p>Esta política se establece de conformidad con el <strong>Reglamento (UE) 2016/679</strong> (RGPD), la <strong>Ley Orgánica 3/2018</strong> (LOPDGDD) y la <strong>Ley Orgánica 1/1982</strong> de protección civil del derecho al honor, a la intimidad personal y familiar y a la propia imagen.</p>
+                    <h3>1. Finalidad y Alcance</h3>
+                    <p>En el desarrollo de sus actividades, STIERS E HIJOS S.L. (Marbella JetSki) puede capturar fotografías y grabaciones de vídeo de sus actividades, equipos, personal, clientes y entornos de playa para promoción y marketing, documentación operativa y cumplimiento de paquetes contratados.</p>
+                    <h3>2. Base Legal para el Tratamiento de Imágenes</h3>
+                    <ul>
+                        <li><strong>Consentimiento (Art. 6(1)(a) RGPD):</strong> Cuando las personas son el sujeto previsto, se obtiene consentimiento expreso previo durante la reserva.</li>
+                        <li><strong>Interés legítimo (Art. 6(1)(f) RGPD):</strong> Cuando las personas aparecen de forma incidental y como elemento meramente accesorio.</li>
+                    </ul>
+                    <h3>3. Captación Incidental vs. Focalizada</h3>
+                    <p>Conforme al Art. 8.2(c) de la LO 1/1982: <strong>Captación incidental</strong> (personas en segundo plano) no requiere consentimiento. <strong>Captación focalizada</strong> (persona identificable como elemento significativo) requiere siempre consentimiento expreso, especialmente con fines publicitarios (Art. 7.6, LO 1/1982).</p>
+                    <h3>4. Disposiciones Especiales para Menores</h3>
+                    <ul>
+                        <li>No se publican imágenes identificables de menores sin consentimiento expreso por escrito de padre/madre o tutor legal.</li>
+                        <li>Menores de 14 años no pueden consentir independientemente (Art. 7 LOPDGDD).</li>
+                        <li>Imágenes de menores publicadas inadvertidamente se eliminan a solicitud (Arts. 84 y 92 LOPDGDD).</li>
+                    </ul>
+                    <h3>5. Sus Derechos Sobre Su Imagen</h3>
+                    <ul>
+                        <li><strong>Acceso</strong> — confirmar si su imagen está siendo utilizada</li>
+                        <li><strong>Supresión ("Derecho al Olvido")</strong> — solicitar eliminación (Art. 17 RGPD, Art. 94 LOPDGDD)</li>
+                        <li><strong>Oposición</strong> — oponerse en cualquier momento al uso basado en interés legítimo</li>
+                    </ul>
+                    <p>Contacto: <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a> o +34 655 442 232. Respuesta en 30 días naturales. Reclamaciones: <strong>AEPD</strong> — <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>.</p>
+                    <h3>6. Aviso y Transparencia</h3>
+                    <p>Se exhibe señalización visible en la zona de operaciones. Avisos disponibles en español, inglés, francés y neerlandés.</p>
+                    <h3>7. Conservación</h3>
+                    <p>Contenido promocional conservado máximo 3 años. Solicitudes de supresión u oposición atendidas en 30 días naturales.</p>
+                    <h3>8. Transferencias Internacionales</h3>
+                    <p>La publicación en plataformas de terceros (Meta, Google, ByteDance) puede implicar transferencias fuera del EEE, regidas por decisiones de adecuación o cláusulas contractuales tipo (Capítulo V RGPD).</p>
+                </div>
+
+<div class="legal-section" id="cookies">
+                    <h2><i class="fas fa-cookie-bite"></i> Política de Cookies</h2>
+                    <p>En cumplimiento del <strong>Artículo 22.2 de la Ley 34/2002 (LSSI-CE)</strong> y la <strong>Directiva 2002/58/CE de la UE</strong> (Directiva ePrivacy), le informamos sobre el uso de cookies en este sitio web.</p>
+
+                    <h3>1. ¿Qué son las Cookies?</h3>
+                    <p>Las cookies son pequeños archivos de texto almacenados en su dispositivo cuando visita un sitio web. Nos ayudan a mejorar su experiencia de navegación y a entender cómo se utiliza nuestro sitio.</p>
+
+                    <h3>2. Tipos de Cookies que Utilizamos</h3>
+
+                    <h3>Cookies Esenciales (Estrictamente Necesarias)</h3>
+                    <p>Son necesarias para el correcto funcionamiento del sitio web. No requieren su consentimiento.</p>
+                    <ul>
+                        <li>Gestión de sesiones</li>
+                        <li>Seguridad y prevención de fraude</li>
+                        <li>Preferencias de consentimiento de cookies</li>
+                    </ul>
+
+                    <h3>Cookies Funcionales</h3>
+                    <p>Recuerdan sus preferencias (idioma, región) para mejorar su experiencia.</p>
+
+                    <h3>Cookies Analíticas</h3>
+                    <p>Nos ayudan a entender cómo los visitantes utilizan nuestro sitio web (páginas vistas, flujo de navegación). Podemos utilizar Google Analytics o servicios similares. Estas cookies son anónimas y no identifican a usuarios individuales.</p>
+
+                    <h3>Cookies de Marketing</h3>
+                    <p>Pueden ser establecidas por nuestros partners publicitarios (p. ej., Facebook Pixel, Instagram) para mostrarle anuncios relevantes. Solo las configuramos con su consentimiento explícito.</p>
+
+                    <h3>3. Gestión de Cookies</h3>
+                    <p>Puede gestionar o desactivar las cookies a través de la configuración de su navegador:</p>
+                    <ul>
+                        <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+                        <li><a href="https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox" target="_blank" rel="noopener noreferrer">Firefox</a></li>
+                        <li><a href="https://support.apple.com/en-gb/guide/safari/sfri11471/" target="_blank" rel="noopener noreferrer">Safari</a></li>
+                        <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
+                    </ul>
+                    <p>Tenga en cuenta que desactivar las cookies puede afectar a la funcionalidad de algunas características de nuestro sitio web.</p>
+
+                    <h3>4. Consentimiento</h3>
+                    <p>Cuando visite nuestro sitio web por primera vez, aparecerá un banner de consentimiento de cookies. Al hacer clic en "Aceptar", usted consiente el uso de todas las cookies. También puede personalizar sus preferencias o rechazar las cookies no esenciales. Su consentimiento puede ser retirado en cualquier momento eliminando sus cookies o ajustando la configuración de su navegador.</p>
+                </div>
+
+                <!-- ==================== NORMAS DE SEGURIDAD ==================== -->
+                <div class="legal-section" id="safety">
+                    <h2><i class="fas fa-shield-alt"></i> Normas de Seguridad</h2>
+                    <p>Las siguientes normas se aplican a todos los participantes. Al reservar una actividad, usted acepta cumplir estas normas. El incumplimiento puede resultar en la terminación inmediata de la actividad sin reembolso.</p>
+
+                    <h3>1. Normas Generales de Seguridad</h3>
+                    <ol>
+                        <li>Debe <strong>seguir estrictamente todas las instrucciones</strong> proporcionadas por el personal durante toda la duración de su actividad.</li>
+                        <li>La zona de navegación designada está indicada con <strong>cuatro boyas/flotadores rojos</strong>. Está absolutamente prohibido operar fuera de esta zona.</li>
+                        <li>Debe permanecer siempre a al menos <strong>200 metros de la costa</strong> y <strong>50 metros de otras motos de agua o embarcaciones</strong>.</li>
+                        <li>Estará acompañado en todo momento por un instructor/embarcación de apoyo.</li>
+                        <li>En caso de problemas mecánicos, <strong>tire del cordón del interruptor de emergencia</strong> para detener el motor. Agite los brazos hacia la embarcación del instructor. <strong>NO abandone la moto de agua.</strong></li>
+                        <li>No se permite el uso de motos de agua a menores de 16 años sin autorización de los padres.</li>
+                        <li>Llevar un <strong>teléfono móvil al agua está estrictamente prohibido</strong>.</li>
+                        <li>Todos los participantes deben llevar el <strong>chaleco salvavidas ISO 12402-5</strong> proporcionado en todo momento. <strong>Los cascos con marcado CE</strong> son obligatorios únicamente para las actividades de deportes acuáticos remolcados (wakeboard, esquí acuático, hinchables remolcados) y no se utilizan en las sesiones de circuito de motos de agua ni en excursiones.</li>
+                    </ol>
+
+                    <h3>2. Sesión Informativa de Seguridad Obligatoria</h3>
+                    <p>Antes de cualquier actividad, todos los participantes deben completar una <strong>sesión informativa de seguridad de 10-15 minutos</strong> que incluye:</p>
+                    <ul>
+                        <li>Manejo y controles de la moto de agua</li>
+                        <li>Cordón del interruptor de emergencia y corte automático de potencia</li>
+                        <li>Uso del cordón del interruptor de emergencia</li>
+                        <li>Normas de navegación y zonas restringidas</li>
+                        <li>Procedimientos de emergencia y señales de socorro</li>
+                        <li>Condiciones meteorológicas de AEMET para la sesión</li>
+                    </ul>
+
+                    <h3>3. Equipamiento y Medidas de Seguridad</h3>
+                    <ul>
+                        <li>Todas las motos de agua son <strong>modelos Yamaha VX 2024-2025</strong> con seguimiento GPS (OtoTrak) y corte automático de potencia</li>
+                        <li>Chalecos salvavidas certificados ISO 12402-5 proporcionados</li>
+                        <li>Cascos con marcado CE proporcionados solo para deportes acuáticos remolcados (wakeboard, esquí acuático, hinchables remolcados)</li>
+                        <li>Embarcación de apoyo con patrón cualificado estacionada a menos de <strong>300 metros</strong></li>
+                        <li>Botiquín de primeros auxilios en todas las embarcaciones de apoyo</li>
+                        <li>Inspecciones mecánicas diarias con certificación <strong>ITB</strong> actualizada</li>
+                        <li>Meteorología verificada con los servicios de <strong>AEMET</strong> y <strong>Puertos del Estado</strong> antes de cada sesión</li>
+                    </ul>
+
+                    <h3>4. Accidentes y Daños</h3>
+                    <p>En caso de daños accidentales al equipamiento causados por negligencia o incumplimiento de las normas:</p>
+                    <ul>
+                        <li>El participante deberá cubrir los gastos de reparación a precios de mercado vigentes.</li>
+                        <li>Se debe cumplimentar un formulario de declaración de accidente con todos los datos requeridos.</li>
+                        <li>Pérdida de llaves: cargo de 25 €.</li>
+                    </ul>
+
+                    <h3>5. Medios y Fotografía</h3>
+                    <p>Nuestro personal puede tomar fotografías y vídeos durante las actividades con fines promocionales. Al participar, se le podrá solicitar autorizar el uso de dichos medios. Esta autorización es opcional y puede ser retirada en cualquier momento contactando con nosotros.</p>
+                    <p>Para cualquier consulta sobre el uso de medios o consentimiento, contáctenos en: <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->

@@ -1,0 +1,269 @@
+/**
+ * Marbella JetSki — WooCommerce Styles
+ * Ensures WooCommerce pages match the theme's design system.
+ */
+
+/* ─── General Layout ─── */
+.woocommerce .woocommerce-result-count,
+.woocommerce .woocommerce-ordering {
+    margin-bottom: 20px;
+}
+
+.woocommerce .woocommerce-breadcrumb {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-size: 14px;
+    color: var(--gray-500, #6b7280);
+    margin-bottom: 24px;
+}
+
+.woocommerce .woocommerce-breadcrumb a {
+    color: var(--primary, #00b4d8);
+    text-decoration: none;
+}
+
+/* ─── Product Cards ─── */
+.woocommerce ul.products li.product {
+    background: var(--white, #fff);
+    border-radius: var(--card-radius, 20px);
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.woocommerce ul.products li.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.woocommerce ul.products li.product a img {
+    border-radius: 0;
+    margin: 0;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--dark, #0a1628);
+    padding: 16px 20px 4px;
+}
+
+.woocommerce ul.products li.product .price {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--primary, #00b4d8);
+    padding: 0 20px 16px;
+}
+
+.woocommerce ul.products li.product .button,
+.woocommerce ul.products li.product .added_to_cart {
+    background: var(--gradient-primary, linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #00cec9 100%));
+    color: white;
+    border-radius: var(--button-radius, 50px);
+    font-weight: 600;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 12px 24px;
+    margin: 0 20px 20px;
+    display: inline-block;
+    text-transform: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.woocommerce ul.products li.product .button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* ─── Single Product ─── */
+.woocommerce div.product .product_title {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--dark, #0a1628);
+    margin-bottom: 12px;
+}
+
+.woocommerce div.product p.price {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--primary, #00b4d8);
+    margin-bottom: 20px;
+}
+
+.woocommerce div.product .woocommerce-product-details__short-description {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--gray-600, #4b5563);
+    margin-bottom: 24px;
+}
+
+.woocommerce div.product form.cart .button {
+    background: var(--gradient-primary, linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #00cec9 100%));
+    color: white;
+    border-radius: var(--button-radius, 50px);
+    font-weight: 600;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 14px 36px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.woocommerce div.product form.cart .button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+    font-weight: 600;
+    color: var(--gray-600, #4b5563);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+    color: var(--primary, #00b4d8);
+}
+
+/* ─── Cart ─── */
+.woocommerce-cart .woocommerce table.shop_table {
+    border-radius: var(--card-radius, 20px);
+    overflow: hidden;
+    border: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.woocommerce-cart .woocommerce table.shop_table th {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 700;
+    background: var(--gray-100, #f3f4f6);
+    color: var(--dark, #0a1628);
+}
+
+.woocommerce a.remove {
+    color: #e74c3c !important;
+}
+
+.woocommerce .cart-collaterals .cart_totals {
+    border-radius: var(--card-radius, 20px);
+    overflow: hidden;
+}
+
+/* ─── Checkout ─── */
+.woocommerce-checkout #payment {
+    background: var(--white, #fff);
+    border-radius: var(--card-radius, 20px);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    padding: 24px;
+}
+
+.woocommerce-checkout .form-row label {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 600;
+    color: var(--dark, #0a1628);
+}
+
+.woocommerce-checkout .form-row input.input-text,
+.woocommerce-checkout .form-row textarea,
+.woocommerce-checkout .form-row select {
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.woocommerce-checkout .form-row input.input-text:focus,
+.woocommerce-checkout .form-row textarea:focus {
+    border-color: var(--primary, #00b4d8);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.15);
+}
+
+.woocommerce #place_order {
+    background: var(--gradient-primary, linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #00cec9 100%));
+    color: white;
+    border-radius: var(--button-radius, 50px);
+    font-weight: 700;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    padding: 16px 40px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.woocommerce #place_order:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* ─── Notices ─── */
+.woocommerce .woocommerce-message,
+.woocommerce .woocommerce-info,
+.woocommerce .woocommerce-error {
+    border-radius: 12px;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+.woocommerce .woocommerce-message {
+    border-top-color: var(--primary, #00b4d8);
+}
+
+.woocommerce .woocommerce-message .button {
+    background: var(--primary, #00b4d8);
+    color: white;
+    border-radius: var(--button-radius, 50px);
+    border: none;
+}
+
+/* ─── My Account ─── */
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+    list-style: none;
+    padding: 0;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li {
+    margin-bottom: 4px;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a {
+    display: block;
+    padding: 12px 20px;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    font-weight: 600;
+    color: var(--gray-600, #4b5563);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a,
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a:hover {
+    background: rgba(0, 180, 216, 0.08);
+    color: var(--primary, #00b4d8);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+    .woocommerce div.product .product_title {
+        font-size: 24px;
+    }
+    .woocommerce div.product p.price {
+        font-size: 22px;
+    }
+    .woocommerce ul.products li.product {
+        margin-bottom: 20px;
+    }
+}

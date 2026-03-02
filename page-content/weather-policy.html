@@ -1,0 +1,511 @@
+<style>
+.wp-hero {
+            background: linear-gradient(135deg, #03045e 0%, #0077b6 50%, #00b4d8 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .wp-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5.5vw, 64px);
+            margin-bottom: 15px;
+        }
+        .wp-hero p {
+            opacity: 0.8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .wp-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+        }
+        .wp-section {
+            margin-bottom: 48px;
+        }
+        .wp-section h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .wp-section h2 i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        .wp-section h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin: 20px 0 10px;
+        }
+        .wp-section p, .wp-section li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444;
+        }
+        .wp-section ul, .wp-section ol {
+            padding-left: 24px;
+            margin: 12px 0;
+        }
+        .wp-section li {
+            margin-bottom: 8px;
+        }
+        .wp-card {
+            background: #f0f7ff;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+        .wp-card.warning {
+            background: #fff8e1;
+            border-left-color: #f59e0b;
+        }
+        .wp-card.green {
+            background: #ecfdf5;
+            border-left-color: #10b981;
+        }
+        .wp-card p {
+            margin: 0;
+        }
+        .wp-criteria-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .wp-criteria-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .wp-criteria-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .wp-criteria-item .criteria-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .wp-criteria-item .criteria-value {
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .wp-criteria-item .criteria-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        .wp-timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 20px 0;
+        }
+        .wp-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+        .wp-timeline-step {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .wp-timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        .wp-timeline-step strong {
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+        .wp-timeline-step p {
+            margin: 4px 0 0;
+            font-size: 0.9rem;
+        }
+        .wp-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .wp-option {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .wp-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .wp-option.opt-reschedule i { color: #3b82f6; }
+        .wp-option.opt-voucher i { color: #8b5cf6; }
+        .wp-option.opt-refund i { color: #10b981; }
+        .wp-option h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        .wp-option p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+        .wp-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 30px;
+        }
+        .wp-back-link:hover { text-decoration: underline; }
+        @media (max-width: 640px) {
+            .wp-hero h1 { font-size: 2rem; }
+            .wp-criteria-grid { grid-template-columns: 1fr; }
+            .wp-options-grid { grid-template-columns: 1fr; }
+        }
+</style>
+
+<style>
+        .wp-hero {
+            background: linear-gradient(135deg, #03045e 0%, #0077b6 50%, #00b4d8 100%);
+            padding: 120px 0 60px;
+            text-align: center;
+            color: white;
+        }
+        .wp-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5.5vw, 64px);
+            margin-bottom: 15px;
+        }
+        .wp-hero p {
+            opacity: 0.8;
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .wp-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+        }
+        .wp-section {
+            margin-bottom: 48px;
+        }
+        .wp-section h2 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .wp-section h2 i {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        .wp-section h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin: 20px 0 10px;
+        }
+        .wp-section p, .wp-section li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444;
+        }
+        .wp-section ul, .wp-section ol {
+            padding-left: 24px;
+            margin: 12px 0;
+        }
+        .wp-section li {
+            margin-bottom: 8px;
+        }
+        .wp-card {
+            background: #f0f7ff;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+        .wp-card.warning {
+            background: #fff8e1;
+            border-left-color: #f59e0b;
+        }
+        .wp-card.green {
+            background: #ecfdf5;
+            border-left-color: #10b981;
+        }
+        .wp-card p {
+            margin: 0;
+        }
+        .wp-criteria-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .wp-criteria-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .wp-criteria-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .wp-criteria-item .criteria-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+        .wp-criteria-item .criteria-value {
+            color: #dc2626;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .wp-criteria-item .criteria-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        .wp-timeline {
+            position: relative;
+            padding-left: 32px;
+            margin: 20px 0;
+        }
+        .wp-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent);
+        }
+        .wp-timeline-step {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .wp-timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        .wp-timeline-step strong {
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+        .wp-timeline-step p {
+            margin: 4px 0 0;
+            font-size: 0.9rem;
+        }
+        .wp-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .wp-option {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .wp-option i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .wp-option.opt-reschedule i { color: #3b82f6; }
+        .wp-option.opt-voucher i { color: #8b5cf6; }
+        .wp-option.opt-refund i { color: #10b981; }
+        .wp-option h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        .wp-option p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+        .wp-back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 30px;
+        }
+        .wp-back-link:hover { text-decoration: underline; }
+        @media (max-width: 640px) {
+            .wp-hero h1 { font-size: 2rem; }
+            .wp-criteria-grid { grid-template-columns: 1fr; }
+            .wp-options-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+<section class="wp-hero">
+        <div class="container">
+            <h1><i class="fas fa-cloud-sun-rain"></i> Weather & Cancellation Policy</h1>
+            <p>Your safety comes first. Here's how we handle weather-related changes to your booking.</p>
+        </div>
+    </section>
+
+    <div class="wp-content">
+
+        <!-- Section 1: Our Commitment -->
+        <div class="wp-section">
+            <h2><i class="fas fa-shield-alt"></i> Safety-First Approach</h2>
+            <p>At Marbella JetSki, every decision starts with safety. We monitor weather conditions continuously using official maritime sources: <strong>AEMET</strong> (Spanish Meteorological Agency) and <strong>Puertos del Estado</strong> (State Ports sea-state data).</p>
+            <div class="wp-card">
+                <p><strong>Who decides?</strong> — The final call on whether conditions are safe is made by our <strong>base skipper</strong> (the on-duty maritime officer). This decision is non-negotiable and always taken in the interest of participant safety.</p>
+            </div>
+        </div>
+
+        <!-- Section 2: Weather Criteria -->
+        <div class="wp-section">
+            <h2><i class="fas fa-wind"></i> Cancellation Criteria</h2>
+            <p>Activities may be cancelled or postponed when any of the following thresholds are met:</p>
+            <div class="wp-criteria-grid">
+                <div class="wp-criteria-item">
+                    <i class="fas fa-wind"></i>
+                    <div class="criteria-label">Wind Speed</div>
+                    <div class="criteria-value">&gt; 20 kn (Force 5+)</div>
+                    <div class="criteria-note">Sustained or gusting</div>
+                </div>
+                <div class="wp-criteria-item">
+                    <i class="fas fa-water"></i>
+                    <div class="criteria-label">Sea State</div>
+                    <div class="criteria-value">&gt; 1.0 m wave height</div>
+                    <div class="criteria-note">Significant wave height (Hs)</div>
+                </div>
+                <div class="wp-criteria-item">
+                    <i class="fas fa-bolt"></i>
+                    <div class="criteria-label">Thunderstorm</div>
+                    <div class="criteria-value">Any lightning risk</div>
+                    <div class="criteria-note">Within 10 NM radius</div>
+                </div>
+                <div class="wp-criteria-item">
+                    <i class="fas fa-eye-slash"></i>
+                    <div class="criteria-label">Visibility</div>
+                    <div class="criteria-value">&lt; 1 km</div>
+                    <div class="criteria-note">Fog, heavy rain, or haze</div>
+                </div>
+            </div>
+            <div class="wp-card warning">
+                <p><i class="fas fa-exclamation-triangle"></i> Even if conditions appear calm on shore, sea-state forecasts or rapid weather changes may make it unsafe to operate. The skipper's decision is final.</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Notification Process -->
+        <div class="wp-section">
+            <h2><i class="fas fa-bell"></i> How We Notify You</h2>
+            <div class="wp-timeline">
+                <div class="wp-timeline-step">
+                    <strong>Evening before (by 21:00)</strong>
+                    <p>If the forecast is clearly adverse, we contact you via WhatsApp or phone to discuss rescheduling.</p>
+                </div>
+                <div class="wp-timeline-step">
+                    <strong>Morning of activity (by 09:00)</strong>
+                    <p>Final check of real-time conditions. If borderline, we inform you and may offer a delayed start.</p>
+                </div>
+                <div class="wp-timeline-step">
+                    <strong>On-site assessment</strong>
+                    <p>If you're already at the beach and conditions change, the skipper may pause or cancel mid-session. Unused time is refunded or credited.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Your Options -->
+        <div class="wp-section">
+            <h2><i class="fas fa-exchange-alt"></i> Your Options If We Cancel</h2>
+            <p>When we cancel due to weather, you always have a choice:</p>
+            <div class="wp-options-grid">
+                <div class="wp-option opt-reschedule">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Reschedule</h3>
+                    <p>Move your booking to another date during your stay — subject to availability, no extra charge.</p>
+                </div>
+                <div class="wp-option opt-voucher">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Open Voucher</h3>
+                    <p>Receive a voucher valid for 12 months. Use it yourself or give it to someone. Transferable.</p>
+                </div>
+                <div class="wp-option opt-refund">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Full Refund</h3>
+                    <p>100% refund to your original payment method, processed within 5–7 business days.</p>
+                </div>
+            </div>
+            <div class="wp-card green">
+                <p><i class="fas fa-check-circle"></i> <strong>No-questions-asked guarantee:</strong> If we cancel for weather, you will never lose your money. Full refund, voucher, or free reschedule — your choice.</p>
+            </div>
+        </div>
+
+        <!-- Section 5: Client-Side Cancellations -->
+        <div class="wp-section">
+            <h2><i class="fas fa-user-times"></i> Cancellations by You</h2>
+            <p>If <strong>you</strong> choose to cancel and the weather is within safe limits, our standard <a href="/terms/#cancellation">cancellation policy</a> applies:</p>
+            <ul>
+                <li><strong>&gt; 48 hours before:</strong> full refund</li>
+                <li><strong>24–48 hours before:</strong> 50% refund or free reschedule</li>
+                <li><strong>&lt; 24 hours / no-show:</strong> no refund</li>
+            </ul>
+        </div>
+
+        <!-- Section 6: Contact -->
+        <div class="wp-section">
+            <h2><i class="fas fa-phone-alt"></i> Questions?</h2>
+            <p>If you're unsure about weather conditions for your upcoming booking, contact us:</p>
+            <ul>
+                <li><strong>WhatsApp / Phone:</strong> <a href="https://api.whatsapp.com/send?phone=34655442232">+34 655 442 232</a></li>
+                <li><strong>Email:</strong> <a href="mailto:jetskimarbella@gmail.com">jetskimarbella@gmail.com</a></li>
+            </ul>
+        </div>
+
+        <a href="/" class="wp-back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Footer (minimal) -->
+
+    <!-- Footer -->

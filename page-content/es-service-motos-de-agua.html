@@ -1,0 +1,160 @@
+<style>
+.cat-hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:url('/wp-content/themes/marbellajetski/assets/media/photos/wp-uploads/18328-mar-scaled.webp') center/cover no-repeat;padding:120px 20px 80px;text-align:center}
+.cat-hero-video{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+.cat-hero-video video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover}
+.cat-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(2,6,30,.6) 0%,rgba(2,20,60,.5) 50%,rgba(2,6,30,.7) 100%);z-index:1}
+.cat-hero-content{position:relative;z-index:2;max-width:800px}
+.cat-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 20px;margin-bottom:20px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.cat-hero-content h1{font-family:var(--font-display);font-size:clamp(32px,5.5vw,64px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px}
+.cat-hero-content h1 span{color:var(--primary)}
+.cat-hero-content p{color:rgba(255,255,255,.75);font-size:16px;line-height:1.7;max-width:600px;margin:0 auto 30px}
+.cat-hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cat-hero-actions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gradient-primary);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.cat-hero-actions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
+.cat-hero-actions .btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;transition:background .2s}
+.cat-hero-actions .btn-secondary:hover{background:rgba(255,255,255,.12)}
+.cat-grid-section{padding:80px 20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-grid-header{text-align:center;margin-bottom:50px}
+.cat-grid-header h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff}
+.cat-grid-header h2 span{color:var(--primary)}
+.cat-grid-header p{color:rgba(255,255,255,.6);font-size:16px;max-width:600px;margin:12px auto 0}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:1100px;margin:0 auto}
+@media(min-width:900px){.cat-grid .cat-card:last-child{grid-column:2}}
+.cat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.cat-card img{width:100%;height:200px;object-fit:cover}
+.cat-card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.cat-card-body h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.cat-card-body p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6;margin-bottom:16px;flex:1}
+.cat-card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-top:auto}
+.cat-card-price{font-size:20px;font-weight:800;color:#fff}
+.cat-card-price small{font-size:12px;font-weight:400;color:rgba(255,255,255,.5)}
+.cat-card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gradient-primary);color:#fff;padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .2s}
+.cat-card-btn:hover{transform:translateY(-2px)}
+.cat-why-section{padding:80px 20px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a1a 100%)}
+.cat-why-section h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;text-align:center;margin-bottom:50px}
+.cat-why-section h2 span{color:var(--primary)}
+.cat-why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.cat-why-card{text-align:center;padding:32px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.cat-why-card i{font-size:32px;color:var(--primary);margin-bottom:16px}
+.cat-why-card h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:8px}
+.cat-why-card p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6}
+.cat-cta-section{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-cta-section h2{font-family:var(--font-display);font-size:32px;font-weight:800;color:#fff;margin-bottom:16px}
+.cat-cta-section p{color:rgba(255,255,255,.65);font-size:16px;max-width:500px;margin:0 auto 30px}
+@media(max-width:768px){.cat-hero-content h1{font-size:32px}.cat-hero-content p{font-size:15px}.cat-hero{padding:120px 16px 60px;min-height:100vh;min-height:100dvh}.cat-hero-video{display:none}.cat-hero-overlay{background:linear-gradient(180deg,rgba(2,6,30,.8) 0%,rgba(2,20,60,.7) 35%,rgba(2,20,60,.7) 65%,rgba(2,6,30,.85) 100%)}.cat-grid-header h2,.cat-why-section h2,.cat-cta-section h2{font-size:28px}}
+</style>
+
+<section class="cat-hero">
+    <div class="cat-hero-video">
+        <video autoplay muted loop playsinline><source src="/wp-content/themes/marbellajetski/assets/media/hero-video.mp4" type="video/mp4"></video>
+    </div>
+    <div class="cat-hero-overlay"></div>
+    <div class="cat-hero-content">
+        <div class="cat-hero-badge"><i class="fas fa-water"></i> Motos de Agua</div>
+        <h1>Motos de <span>Agua</span> en Marbella</h1>
+        <p>Siente la adrenalina en el mar Mediterr&aacute;neo. Elige entre excursiones guiadas por la Costa del Sol o circuitos cerrados con motos de competici&oacute;n. Sin licencia necesaria.</p>
+        <div class="cat-hero-actions">
+            <a href="/es/reservar/" class="btn-primary"><i class="fas fa-calendar-check"></i> Reservar</a>
+            <a href="https://api.whatsapp.com/send?phone=34655442232&text=Hola!%20Me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20las%20motos%20de%20agua." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Cont&aacute;ctanos</a>
+        </div>
+    </div>
+</section>
+
+<section class="cat-grid-section">
+    <div class="cat-grid-header">
+        <h2>Elige Tu <span>Experiencia en Moto de Agua</span></h2>
+        <p>Desde circuitos tranquilos hasta aventuras en mar abierto por la impresionante Costa del Sol.</p>
+    </div>
+    <div class="cat-grid">
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/circuit-jetski.png" alt="Circuito Cerrado Moto de Agua" width="600" height="400" loading="lazy">
+            <div class="cat-card-body">
+                <h3>Circuito Cerrado</h3>
+                <p>Conduce en nuestro circuito cerrado a tu ritmo. Perfecto para principiantes y familias. Sin licencia, incluye briefing de seguridad.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">60&euro; <small>/ 15 min</small></div>
+                    <a href="/es/circuito-cerrado-motos-acuaticas/" class="cat-card-btn">Ver <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/jetski-excursion.webp" alt="Excursi&oacute;n Moto de Agua Fuengirola" width="600" height="400" loading="lazy">
+            <div class="cat-card-body">
+                <h3>Excursi&oacute;n a Fuengirola</h3>
+                <p>Una emocionante excursi&oacute;n costera de 30 km desde Marbella hasta Fuengirola. Recorre aguas abiertas con vistas espectaculares.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">160&euro; <small>/ 60 min</small></div>
+                    <a href="/es/excursion-moto-agua-fuengirola/" class="cat-card-btn">Ver <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/marbella-tour.png" alt="Tour Moto de Agua Marbella" width="600" height="400" loading="lazy">
+            <div class="cat-card-body">
+                <h3>Tour por Marbella</h3>
+                <p>Explora la costa de Marbella en un tour guiado en moto de agua. Pasa por playas doradas, villas de lujo y calas ocultas.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">100&euro; <small>/ 30 min</small></div>
+                    <a href="/es/excursion-moto-agua-marbella/" class="cat-card-btn">Ver <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/blue-jetski.webp" alt="Tour Moto de Agua Puerto Ban&uacute;s" width="600" height="400" loading="lazy">
+            <div class="cat-card-body">
+                <h3>Excursi&oacute;n a Puerto Ban&uacute;s</h3>
+                <p>Navega hasta el ic&oacute;nico Puerto Ban&uacute;s pasando por superyates y clubs de playa. La ruta m&aacute;s popular de la Costa del Sol.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">130&euro; <small>/ 45 min</small></div>
+                    <a href="/es/tour-moto-agua-puerto-banus/" class="cat-card-btn">Ver <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.5);margin-top:18px;"><i class="fas fa-receipt" style="margin-right:5px;color:#00b4d8;opacity:.7;"></i>Todos los precios incluyen IVA. Precio desde.</p>
+</section>
+
+<section class="cat-why-section">
+    <h2>&iquest;Por Qu&eacute; Elegir <span>Marbella Jet Ski</span>?</h2>
+    <div class="cat-why-grid">
+        <div class="cat-why-card"><i class="fas fa-shield-alt"></i><h4>Seguridad Primero</h4><p>Briefing completo, chalecos salvavidas e instructores certificados en cada excursi&oacute;n.</p></div>
+        <div class="cat-why-card"><i class="fas fa-trophy"></i><h4>Equipo Premium</h4><p>Motos Sea-Doo y Yamaha de &uacute;ltima generaci&oacute;n, revisadas diariamente.</p></div>
+        <div class="cat-why-card"><i class="fas fa-map-marked-alt"></i><h4>Mejores Rutas</h4><p>Nuestros gu&iacute;as conocen cada cala y rinc&oacute;n de la Costa del Sol. Rutas exclusivas.</p></div>
+        <div class="cat-why-card"><i class="fas fa-users"></i><h4>Desde 1998</h4><p>Empresa familiar con m&aacute;s de 25 a&ntilde;os de experiencia y miles de clientes satisfechos.</p></div>
+    </div>
+</section>
+
+
+<!-- Condiciones Climáticas -->
+<section class="service-section">
+    <div class="container">
+        <h2>Condiciones <span>Clim&aacute;ticas</span> en Marbella</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px;">
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-sun" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">M&aacute;s de 320 D&iacute;as de Sol</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">El microclima excepcional de Marbella ofrece condiciones ideales pr&aacute;cticamente todo el a&ntilde;o.</p>
+            </div>
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-temperature-high" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">18-30&deg;C de Media</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">Temperaturas agradables todo el a&ntilde;o. En verano el mar alcanza 25&deg;C &mdash; perfecto para deportes acu&aacute;ticos.</p>
+            </div>
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-calendar-alt" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">Abril &ndash; Octubre: Ideal</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">Mar en calma por la ma&ntilde;ana, cielos despejados y una suave brisa por la tarde. Incluso septiembre y octubre ofrecen condiciones perfectas.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cat-cta-section">
+    <h2>&iquest;Listo para Tu Aventura en Moto de Agua?</h2>
+    <p>Reserva online hoy y asegura tu plaza. Cancelaci&oacute;n gratuita hasta 24 horas antes.</p>
+    <div class="cat-hero-actions">
+        <a href="/es/reservar/" class="btn-primary"><i class="fas fa-calendar-check"></i> Reservar</a>
+        <a href="https://api.whatsapp.com/send?phone=34655442232&text=Hola!%20Quiero%20reservar%20motos%20de%20agua." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+</section>

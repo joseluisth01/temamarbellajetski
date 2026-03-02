@@ -1,0 +1,160 @@
+<style>
+.cat-hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:url('/wp-content/themes/marbellajetski/assets/media/photos/wp-uploads/18328-mar-scaled.webp') center/cover no-repeat;padding:120px 20px 80px;text-align:center}
+.cat-hero-video{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+.cat-hero-video video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover}
+.cat-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(2,6,30,.6) 0%,rgba(2,20,60,.5) 50%,rgba(2,6,30,.7) 100%);z-index:1}
+.cat-hero-content{position:relative;z-index:2;max-width:800px}
+.cat-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 20px;margin-bottom:20px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.cat-hero-content h1{font-family:var(--font-display);font-size:clamp(32px,5.5vw,64px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px}
+.cat-hero-content h1 span{color:var(--primary)}
+.cat-hero-content p{color:rgba(255,255,255,.75);font-size:16px;line-height:1.7;max-width:600px;margin:0 auto 30px}
+.cat-hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cat-hero-actions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gradient-primary);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.cat-hero-actions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
+.cat-hero-actions .btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;transition:background .2s}
+.cat-hero-actions .btn-secondary:hover{background:rgba(255,255,255,.12)}
+.cat-grid-section{padding:80px 20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-grid-header{text-align:center;margin-bottom:50px}
+.cat-grid-header h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff}
+.cat-grid-header h2 span{color:var(--primary)}
+.cat-grid-header p{color:rgba(255,255,255,.6);font-size:16px;max-width:600px;margin:12px auto 0}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:1100px;margin:0 auto}
+@media(min-width:900px){.cat-grid .cat-card:last-child{grid-column:2}}
+.cat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.cat-card img{width:100%;height:200px;object-fit:cover}
+.cat-card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.cat-card-body h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.cat-card-body p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6;margin-bottom:16px;flex:1}
+.cat-card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-top:auto}
+.cat-card-price{font-size:20px;font-weight:800;color:#fff}
+.cat-card-price small{font-size:12px;font-weight:400;color:rgba(255,255,255,.5)}
+.cat-card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gradient-primary);color:#fff;padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .2s}
+.cat-card-btn:hover{transform:translateY(-2px)}
+.cat-why-section{padding:80px 20px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a1a 100%)}
+.cat-why-section h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;text-align:center;margin-bottom:50px}
+.cat-why-section h2 span{color:var(--primary)}
+.cat-why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.cat-why-card{text-align:center;padding:32px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.cat-why-card i{font-size:32px;color:var(--primary);margin-bottom:16px}
+.cat-why-card h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:8px}
+.cat-why-card p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6}
+.cat-cta-section{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-cta-section h2{font-family:var(--font-display);font-size:32px;font-weight:800;color:#fff;margin-bottom:16px}
+.cat-cta-section p{color:rgba(255,255,255,.65);font-size:16px;max-width:500px;margin:0 auto 30px}
+@media(max-width:768px){.cat-hero-content h1{font-size:32px}.cat-hero-content p{font-size:15px}.cat-hero{padding:120px 16px 60px;min-height:100vh;min-height:100dvh}.cat-hero-video{display:none}.cat-hero-overlay{background:linear-gradient(180deg,rgba(2,6,30,.8) 0%,rgba(2,20,60,.7) 35%,rgba(2,20,60,.7) 65%,rgba(2,6,30,.85) 100%)}.cat-grid-header h2,.cat-why-section h2,.cat-cta-section h2{font-size:28px}}
+</style>
+
+<section class="cat-hero">
+    <div class="cat-hero-video">
+        <video autoplay muted loop playsinline><source src="/wp-content/themes/marbellajetski/assets/media/hero-video.mp4" type="video/mp4"></video>
+    </div>
+    <div class="cat-hero-overlay"></div>
+    <div class="cat-hero-content">
+        <div class="cat-hero-badge"><i class="fas fa-water"></i> Jet Ski</div>
+        <h1>Jet Ski &agrave; <span>Marbella</span></h1>
+        <p>Ressentez la mont&eacute;e d&rsquo;adr&eacute;naline sur la mer M&eacute;diterran&eacute;e. Choisissez parmi des excursions guid&eacute;es le long de la Costa del Sol ou des circuits sur des machines de comp&eacute;tition. Aucun permis requis.</p>
+        <div class="cat-hero-actions">
+            <a href="/fr/reservation/" class="btn-primary"><i class="fas fa-calendar-check"></i> R&eacute;server</a>
+            <a href="https://api.whatsapp.com/send?phone=34655442232&text=Bonjour!%20Je%20voudrais%20en%20savoir%20plus%20sur%20le%20jet%20ski." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Contactez-nous</a>
+        </div>
+    </div>
+</section>
+
+<section class="cat-grid-section">
+    <div class="cat-grid-header">
+        <h2>Choisissez Votre <span>Exp&eacute;rience Jet Ski</span></h2>
+        <p>Des circuits calmes aux aventures en pleine mer le long de la magnifique Costa del Sol.</p>
+    </div>
+    <div class="cat-grid">
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/circuit-jetski.png" alt="Circuit Jet Ski" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Circuit Jet Ski</h3>
+                <p>Pilotez sur notre circuit ferm&eacute; &agrave; votre rythme. Parfait pour les d&eacute;butants et les familles. Sans permis, briefing s&eacute;curit&eacute; inclus.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">60&euro; <small>/ 15 min</small></div>
+                    <a href="/fr/circuit-jet-ski/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/jetski-excursion.webp" alt="Excursion Jet Ski Fuengirola" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Excursion &agrave; Fuengirola</h3>
+                <p>Une excursion c&ocirc;ti&egrave;re palpitante de 30 km de Marbella &agrave; Fuengirola. Parcourez les eaux avec des vues spectaculaires.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">160&euro; <small>/ 60 min</small></div>
+                    <a href="/fr/excursion-jet-ski-fuengirola/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/marbella-tour.png" alt="Tour Jet Ski Marbella" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Tour &agrave; Marbella</h3>
+                <p>Explorez le littoral de Marbella lors d&rsquo;un tour guid&eacute; en jet ski. Passez par des plages dor&eacute;es et des criques cach&eacute;es.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">100&euro; <small>/ 30 min</small></div>
+                    <a href="/fr/tour-jet-ski-marbella/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/blue-jetski.webp" alt="Excursion Jet Ski Puerto Ban&uacute;s" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Excursion &agrave; Puerto Ban&uacute;s</h3>
+                <p>Naviguez jusqu&rsquo;au c&eacute;l&egrave;bre Puerto Ban&uacute;s en passant par des superyachts et des clubs de plage. L&rsquo;itin&eacute;raire le plus populaire.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">130&euro; <small>/ 45 min</small></div>
+                    <a href="/fr/tour-jet-ski-puerto-banus/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.5);margin-top:18px;"><i class="fas fa-receipt" style="margin-right:5px;color:#00b4d8;opacity:.7;"></i>Tous les prix incluent la TVA (IVA). Prix &agrave; partir de.</p>
+</section>
+
+<section class="cat-why-section">
+    <h2>Pourquoi Choisir <span>Marbella Jet Ski</span>&nbsp;?</h2>
+    <div class="cat-why-grid">
+        <div class="cat-why-card"><i class="fas fa-shield-alt"></i><h4>S&eacute;curit&eacute; d&rsquo;Abord</h4><p>Briefing complet, gilets de sauvetage et moniteurs certifi&eacute;s &agrave; chaque sortie.</p></div>
+        <div class="cat-why-card"><i class="fas fa-trophy"></i><h4>&Eacute;quipement Premium</h4><p>Jet skis Sea-Doo et Yamaha de derni&egrave;re g&eacute;n&eacute;ration, r&eacute;vis&eacute;s quotidiennement.</p></div>
+        <div class="cat-why-card"><i class="fas fa-map-marked-alt"></i><h4>Meilleurs Itin&eacute;raires</h4><p>Nos guides connaissent chaque crique de la Costa del Sol. Itin&eacute;raires exclusifs.</p></div>
+        <div class="cat-why-card"><i class="fas fa-users"></i><h4>Depuis 1998</h4><p>Entreprise familiale avec plus de 25 ans d&rsquo;exp&eacute;rience et des milliers de clients satisfaits.</p></div>
+    </div>
+</section>
+
+
+<!-- Conditions Météorologiques -->
+<section class="service-section">
+    <div class="container">
+        <h2>Conditions <span>M&eacute;t&eacute;orologiques</span> &agrave; Marbella</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:32px;">
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-sun" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">Plus de 320 Jours de Soleil</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">Le microclimat exceptionnel de Marbella offre des conditions id&eacute;ales presque toute l&rsquo;ann&eacute;e.</p>
+            </div>
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-temperature-high" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">18-30&deg;C en Moyenne</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">Temp&eacute;ratures agr&eacute;ables toute l&rsquo;ann&eacute;e. En &eacute;t&eacute;, la mer atteint 25&deg;C &mdash; parfait pour les sports nautiques.</p>
+            </div>
+            <div style="text-align:center;padding:28px 20px;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.06);border-radius:16px;">
+                <i class="fas fa-calendar-alt" style="font-size:28px;color:var(--primary);margin-bottom:12px;display:block;"></i>
+                <h4 style="color:var(--primary);font-size:15px;margin-bottom:6px;">Avril &ndash; Octobre : Id&eacute;al</h4>
+                <p style="color:#4b5563;font-size:13px;line-height:1.5;">Mer calme le matin, ciel d&eacute;gag&eacute; et brise l&eacute;g&egrave;re l&rsquo;apr&egrave;s-midi. M&ecirc;me septembre et octobre offrent des conditions parfaites.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cat-cta-section">
+    <h2>Pr&ecirc;t pour Votre Aventure en Jet Ski&nbsp;?</h2>
+    <p>R&eacute;servez en ligne et s&eacute;curisez votre place. Annulation gratuite jusqu&rsquo;&agrave; 24h avant.</p>
+    <div class="cat-hero-actions">
+        <a href="/fr/reservation/" class="btn-primary"><i class="fas fa-calendar-check"></i> R&eacute;server</a>
+        <a href="https://api.whatsapp.com/send?phone=34655442232&text=Bonjour!%20Je%20voudrais%20r%C3%A9server%20du%20jet%20ski." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+</section>

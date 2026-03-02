@@ -1,0 +1,192 @@
+<style>
+.cat-hero{position:relative;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:url('/wp-content/themes/marbellajetski/assets/media/photos/wp-uploads/18328-mar-scaled.webp') center/cover no-repeat;padding:120px 20px 80px;text-align:center}
+.cat-hero-video{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
+.cat-hero-video video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover}
+.cat-hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(2,6,30,.6) 0%,rgba(2,20,60,.5) 50%,rgba(2,6,30,.7) 100%);z-index:1}
+.cat-hero-content{position:relative;z-index:2;max-width:800px}
+.cat-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 20px;margin-bottom:20px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.cat-hero-content h1{font-family:var(--font-display);font-size:clamp(32px,5.5vw,64px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:16px}
+.cat-hero-content h1 span{color:var(--primary)}
+.cat-hero-content p{color:rgba(255,255,255,.75);font-size:16px;line-height:1.7;max-width:600px;margin:0 auto 30px}
+.cat-hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cat-hero-actions .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gradient-primary);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.cat-hero-actions .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,180,216,.3)}
+.cat-hero-actions .btn-secondary{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;padding:14px 32px;border-radius:50px;font-weight:600;font-size:15px;text-decoration:none;transition:background .2s}
+.cat-hero-actions .btn-secondary:hover{background:rgba(255,255,255,.12)}
+.cat-grid-section{padding:80px 20px;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-grid-header{text-align:center;margin-bottom:50px}
+.cat-grid-header h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff}
+.cat-grid-header h2 span{color:var(--primary)}
+.cat-grid-header p{color:rgba(255,255,255,.6);font-size:16px;max-width:600px;margin:12px auto 0}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:1100px;margin:0 auto}
+.cat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.cat-card img{width:100%;height:200px;object-fit:cover}
+.cat-card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.cat-card-body h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.cat-card-body p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6;margin-bottom:16px;flex:1}
+.cat-card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:16px;margin-top:auto}
+.cat-card-price{font-size:20px;font-weight:800;color:#fff}
+.cat-card-price small{font-size:12px;font-weight:400;color:rgba(255,255,255,.5)}
+.cat-card-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gradient-primary);color:#fff;padding:10px 20px;border-radius:50px;font-weight:600;font-size:14px;text-decoration:none;transition:transform .2s}
+.cat-card-btn:hover{transform:translateY(-2px)}
+.cat-sub-label{max-width:1100px;margin:0 auto 24px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--font-display);font-size:22px;font-weight:700;color:#fff}
+.cat-sub-label i{color:var(--primary);margin-right:8px}
+.cat-why-section{padding:80px 20px;background:linear-gradient(180deg,#0d1b2a 0%,#0a0a1a 100%)}
+.cat-why-section h2{font-family:var(--font-display);font-size:36px;font-weight:800;color:#fff;text-align:center;margin-bottom:50px}
+.cat-why-section h2 span{color:var(--primary)}
+.cat-why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.cat-why-card{text-align:center;padding:32px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:16px}
+.cat-why-card i{font-size:32px;color:var(--primary);margin-bottom:16px}
+.cat-why-card h4{color:#fff;font-size:16px;font-weight:700;margin-bottom:8px}
+.cat-why-card p{color:rgba(255,255,255,.6);font-size:13px;line-height:1.6}
+.cat-cta-section{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a1a3e 50%,#0d1b2a 100%)}
+.cat-cta-section h2{font-family:var(--font-display);font-size:32px;font-weight:800;color:#fff;margin-bottom:16px}
+.cat-cta-section p{color:rgba(255,255,255,.65);font-size:16px;max-width:500px;margin:0 auto 30px}
+@media(max-width:768px){.cat-hero-content h1{font-size:32px}.cat-hero-content p{font-size:15px}.cat-hero{padding:120px 16px 60px;min-height:100vh;min-height:100dvh}.cat-hero-video{display:none}.cat-hero-overlay{background:linear-gradient(180deg,rgba(2,6,30,.8) 0%,rgba(2,20,60,.7) 35%,rgba(2,20,60,.7) 65%,rgba(2,6,30,.85) 100%)}.cat-grid-header h2,.cat-why-section h2,.cat-cta-section h2{font-size:28px}.cat-sub-label{font-size:18px}}
+</style>
+
+<section class="cat-hero">
+    <div class="cat-hero-video">
+        <video autoplay muted loop playsinline><source src="/wp-content/themes/marbellajetski/assets/media/hero-video.mp4" type="video/mp4"></video>
+    </div>
+    <div class="cat-hero-overlay"></div>
+    <div class="cat-hero-content">
+        <div class="cat-hero-badge"><i class="fas fa-umbrella-beach"></i> Activit&eacute;s Nautiques</div>
+        <h1>Activit&eacute;s <span>Nautiques</span> &agrave; Marbella</h1>
+        <p>Les meilleures activit&eacute;s nautiques de la Costa del Sol. Amusement garanti pour les familles, les groupes et les amateurs de sensations fortes de tous &acirc;ges.</p>
+        <div class="cat-hero-actions">
+            <a href="/fr/reservation/" class="btn-primary"><i class="fas fa-calendar-check"></i> R&eacute;server</a>
+            <a href="https://api.whatsapp.com/send?phone=34655442232&text=Bonjour!%20Je%20voudrais%20en%20savoir%20plus%20sur%20les%20activit%C3%A9s%20nautiques." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Contactez-nous</a>
+        </div>
+    </div>
+</section>
+
+<section class="cat-grid-section">
+    <div class="cat-grid-header">
+        <h2>Choisissez Votre <span>Aventure Nautique</span></h2>
+        <p>Des bouées tractées excitantes aux sports nautiques pour tous — des p&eacute;dalos relaxants aux exp&eacute;riences &agrave; haute vitesse.</p>
+    </div>
+
+    <div class="cat-grid" style="margin-bottom:50px;">
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/banana-boat.png" alt="Banana Boat" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Banana Boat</h3>
+                <p>Montez &agrave; 6 et accrochez-vous bien en rebondissant sur les vagues sur ce classique gonflable. Pour tous les &acirc;ges.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ pers.</small></div>
+                    <a href="/fr/banana-boat/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/crazy-sofa.webp" alt="Crazy Sofa" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Crazy Sofa</h3>
+                <p>Le gonflable le plus fou de la mer ! Asseyez-vous et laissez-vous tracter &agrave; grande vitesse avec des virages serr&eacute;s.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ pers.</small></div>
+                    <a href="/fr/crazy-sofa/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/donut.webp" alt="Donut Nautique" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Donut Nautique</h3>
+                <p>Tournez, rebondissez et volez sur les vagues sur un donut gonflable g&eacute;ant. L&rsquo;une des exp&eacute;riences les plus fun.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ pers.</small></div>
+                    <a href="/fr/donut-nautique/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/water-bull.webp" alt="Water Bull" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Water Bull</h3>
+                <p>Montez le taureau m&eacute;canique de la mer ! Accrochez-vous pendant que le gonflable tourne et saute. Adr&eacute;naline garantie.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ pers.</small></div>
+                    <a href="/fr/water-bull/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/air-stream.jpg" alt="Air Stream" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Air Stream</h3>
+                <p>Volez dans les airs sur ce gonflable &agrave; haute vitesse qui d&eacute;colle de l&rsquo;eau. L&rsquo;exp&eacute;rience nautique la plus intense de Marbella.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ pers.</small></div>
+                    <a href="/fr/air-stream-marbella/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/paddle-surf.png" alt="Paddle Surf" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Stand-Up Paddle</h3>
+                <p>Glissez sur des eaux cristallines en paddle. Une fa&ccedil;on relaxante d&rsquo;explorer le littoral tout en faisant du sport.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ heure</small></div>
+                    <a href="/fr/paddle-surf/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/water-skiing.jpg" alt="Ski Nautique" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Ski Nautique</h3>
+                <p>Apprenez ou perfectionnez-vous avec nos moniteurs professionnels. Tout l&rsquo;&eacute;quipement fourni, tous niveaux.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">80&euro; <small>/ s&eacute;ance</small></div>
+                    <a href="/fr/ski-nautique/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/wakeboard.jpg" alt="Wakeboard" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>Wakeboard</h3>
+                <p>Surfez dans le sillage de notre bateau. Du premier essai aux sauts avanc&eacute;s, nos moniteurs vous guident &agrave; chaque &eacute;tape.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">80&euro; <small>/ s&eacute;ance</small></div>
+                    <a href="/fr/wakeboard/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="cat-card">
+            <img src="/wp-content/themes/marbellajetski/assets/media/photos/services/pedal-boat.jpg" alt="P&eacute;dalo" loading="lazy" width="600" height="400">
+            <div class="cat-card-body">
+                <h3>P&eacute;dalo</h3>
+                <p>Activit&eacute; familiale et relaxante. P&eacute;dalez le long de la c&ocirc;te &agrave; votre rythme et profitez du soleil m&eacute;diterran&eacute;en.</p>
+                <div class="cat-card-footer">
+                    <div class="cat-card-price">20&euro; <small>/ heure</small></div>
+                    <a href="/fr/pedalo/" class="cat-card-btn">Voir <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p style="text-align:center;font-size:.82rem;color:rgba(255,255,255,.5);margin-top:18px;"><i class="fas fa-receipt" style="margin-right:5px;color:#00b4d8;opacity:.7;"></i>Tous les prix incluent la TVA (IVA). Prix &agrave; partir de.</p>
+</section>
+
+<section class="cat-why-section">
+    <h2>Pourquoi R&eacute;server Votre <span>Aventure Nautique</span> Avec Nous&nbsp;?</h2>
+    <div class="cat-why-grid">
+        <div class="cat-why-card"><i class="fas fa-child"></i><h4>Fun pour Tous</h4><p>Activit&eacute;s d&egrave;s 4 ans. Gilets de sauvetage et briefing s&eacute;curit&eacute; inclus.</p></div>
+        <div class="cat-why-card"><i class="fas fa-bolt"></i><h4>Dernier &Eacute;quipement</h4><p>Bou&eacute;es, planches et bateaux neufs. Nous investissons dans le meilleur mat&eacute;riel.</p></div>
+        <div class="cat-why-card"><i class="fas fa-tags"></i><h4>Packs Multi-Aventure</h4><p>Combinez plusieurs activit&eacute;s et &eacute;conomisez ! Demandez nos packs groupe.</p></div>
+        <div class="cat-why-card"><i class="fas fa-star"></i><h4>Avis 5 &Eacute;toiles</h4><p>Not&eacute; excellent sur Google avec des centaines d&rsquo;avis 5 &eacute;toiles.</p></div>
+    </div>
+</section>
+
+<section class="cat-cta-section">
+    <h2>Pr&ecirc;t pour du Fun sur l&rsquo;Eau&nbsp;?</h2>
+    <p>R&eacute;servez votre activit&eacute; nautique aujourd&rsquo;hui et cr&eacute;ez des souvenirs inoubliables &agrave; Marbella.</p>
+    <div class="cat-hero-actions">
+        <a href="/fr/reservation/" class="btn-primary"><i class="fas fa-calendar-check"></i> R&eacute;server</a>
+        <a href="https://api.whatsapp.com/send?phone=34655442232&text=Bonjour!%20Je%20voudrais%20r%C3%A9server%20des%20activit%C3%A9s%20nautiques." class="btn-secondary" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+</section>

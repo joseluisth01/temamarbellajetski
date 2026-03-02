@@ -1,0 +1,26 @@
+/*
+Theme Name: Marbella JetSki
+Theme URI: https://marbellajetski.com
+Author: Marbella JetSki / Daniel Stiers
+Author URI: https://marbellajetski.com
+Description: Premium jet ski rental, yacht charter & water sports theme for Marbella. 4-language support (EN/ES/FR/NL). Compatible with WooCommerce, Polylang, Rank Math, Contact Form 7 and LiteSpeed Cache.
+Version: 2.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: marbellajetski
+Tags: one-column, custom-menu, featured-images, translation-ready, custom-logo
+
+== INSTALLATION ==
+1. Upload this folder to /wp-content/themes/
+2. Go to Appearance → Themes → Activate "Marbella JetSki"
+3. All 24 pages are created automatically
+4. Visit your site — done!
+
+== CUSTOMIZATION ==
+- Appearance → Customize → Contact Details (phone, email, WhatsApp)
+- Appearance → Customize → Social Media (Facebook, Instagram, etc.)
+- Appearance → Customize → Promo Banner (toggle, text)
+*/
