@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Generic Page Template
  * 
@@ -13,7 +14,8 @@ $is_lang_home = mjsk_is_homepage();
 
 <main id="main-content">
     <?php
-    if ($content_file) {
+    $content_path = $content_file ? get_template_directory() . '/page-content/' . $content_file : '';
+    if ($content_file && file_exists($content_path)) {
         // Auto-include shared styles for non-EN pages (e.g. es-booking.html → booking-styles.html)
         $slug = get_post_field('post_name', get_the_ID());
         $lang  = mjsk_get_lang();

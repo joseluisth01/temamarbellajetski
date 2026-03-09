@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Marbella JetSki Theme Functions
  *
@@ -16,8 +17,9 @@
 /**
  * Return the full URL to an asset inside /assets/.
  */
-function mjsk_asset( $path ) {
-    return get_template_directory_uri() . '/assets/' . ltrim( $path, '/' );
+function mjsk_asset($path)
+{
+    return get_template_directory_uri() . '/assets/' . ltrim($path, '/');
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -28,31 +30,32 @@ function mjsk_asset( $path ) {
  * Detect the current language from the URL path.
  * /es/…  → 'es'   /fr/…  → 'fr'   /nl/…  → 'nl'   otherwise → 'en'
  */
-function mjsk_get_lang() {
+function mjsk_get_lang()
+{
     static $lang = null;
-    if ( $lang !== null ) return $lang;
+    if ($lang !== null) return $lang;
 
     // If Polylang is active, use it as the source of truth
-    if ( function_exists( 'pll_current_language' ) ) {
-        $pll_lang = pll_current_language( 'slug' );
-        if ( $pll_lang ) {
+    if (function_exists('pll_current_language')) {
+        $pll_lang = pll_current_language('slug');
+        if ($pll_lang) {
             $lang = $pll_lang;
             return $lang;
         }
     }
 
-    $uri = trim( $_SERVER['REQUEST_URI'] ?? '', '/' );
-    $parts = explode( '/', $uri );
+    $uri = trim($_SERVER['REQUEST_URI'] ?? '', '/');
+    $parts = explode('/', $uri);
 
     // Check if first meaningful segment is a language code
-    foreach ( $parts as $seg ) {
-        $seg = strtolower( $seg );
-        if ( in_array( $seg, [ 'es', 'fr', 'nl' ], true ) ) {
+    foreach ($parts as $seg) {
+        $seg = strtolower($seg);
+        if (in_array($seg, ['es', 'fr', 'nl'], true)) {
             $lang = $seg;
             return $lang;
         }
         // Stop at first non-empty segment that isn't a lang code
-        if ( $seg !== '' && ! in_array( $seg, [ 'es', 'fr', 'nl' ], true ) ) {
+        if ($seg !== '' && ! in_array($seg, ['es', 'fr', 'nl'], true)) {
             break;
         }
     }
@@ -60,16 +63,24 @@ function mjsk_get_lang() {
     return $lang;
 }
 
+
+add_filter('body_class', function ($classes) {
+    $classes[] = 'lang-' . mjsk_get_lang();
+    return $classes;
+});
+
+
 /* ═══════════════════════════════════════════════════════════════
    3.  PAGE / HOMEPAGE DETECTION
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_is_homepage() {
-    if ( is_front_page() ) return true;
+function mjsk_is_homepage()
+{
+    if (is_front_page()) return true;
 
     // Language homepages: /es/, /fr/, /nl/
-    $slug = get_post_field( 'post_name', get_the_ID() );
-    if ( in_array( $slug, [ 'es', 'fr', 'nl' ], true ) ) return true;
+    $slug = get_post_field('post_name', get_the_ID());
+    if (in_array($slug, ['es', 'fr', 'nl'], true)) return true;
 
     return false;
 }
@@ -78,58 +89,62 @@ function mjsk_is_homepage() {
    4.  URL BUILDERS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_get_home_url( $lang = 'en' ) {
-    return $lang === 'en' ? home_url( '/' ) : home_url( '/' . $lang . '/' );
+function mjsk_get_home_url($lang = 'en')
+{
+    return $lang === 'en' ? home_url('/') : home_url('/' . $lang . '/');
 }
 
-function mjsk_get_booking_url( $lang = 'en' ) {
+function mjsk_get_booking_url($lang = 'en')
+{
     return $lang === 'en'
-        ? home_url( '/booking/' )
-        : home_url( '/' . $lang . '/booking/' );
+        ? home_url('/booking/')
+        : home_url('/' . $lang . '/booking/');
 }
 
 /**
  * Service slug mapping: EN slug => [ es => ..., fr => ..., nl => ... ]
  * Each language has its own localized slug for service pages.
  */
-function mjsk_service_slug_map() {
+function mjsk_service_slug_map()
+{
     return [
         // Aggregate category pages
-        'jet-ski'                        => [ 'es' => 'motos-de-agua',                    'fr' => 'jet-ski',                          'nl' => 'jetski' ],
-        'water-activities'               => [ 'es' => 'actividades-acuaticas',            'fr' => 'activites-nautiques',              'nl' => 'wateractiviteiten' ],
-        'boat-hire'                      => [ 'es' => 'alquiler-barcos',                  'fr' => 'location-bateaux',                 'nl' => 'boot-huren' ],
+        'jet-ski'                        => ['es' => 'motos-de-agua',                    'fr' => 'jet-ski',                          'nl' => 'jetski'],
+        'water-activities'               => ['es' => 'actividades-acuaticas',            'fr' => 'activites-nautiques',              'nl' => 'wateractiviteiten'],
+        'boat-hire'                      => ['es' => 'alquiler-barcos',                  'fr' => 'location-bateaux',                 'nl' => 'boot-huren'],
         // Individual service pages
-        'closed-circuit-jet-ski'         => [ 'es' => 'circuito-cerrado-motos-acuaticas', 'fr' => 'circuit-ferme-jet-ski',            'nl' => 'gesloten-circuit-jetski' ],
-        'jet-ski-excursion-fuengirola'   => [ 'es' => 'excursion-moto-agua-fuengirola',   'fr' => 'excursion-jet-ski-fuengirola',     'nl' => 'jetski-excursie-fuengirola' ],
-        'jet-ski-tour-marbella'          => [ 'es' => 'excursion-moto-agua-marbella',     'fr' => 'tour-jet-ski-marbella',            'nl' => 'jetski-tour-marbella' ],
-        'jet-ski-tour-puerto-banus'      => [ 'es' => 'tour-moto-agua-puerto-banus',      'fr' => 'tour-jet-ski-puerto-banus',        'nl' => 'jetski-tour-puerto-banus' ],
-        'wakeboarding-experience'       => [ 'es' => 'wakeboard',                        'fr' => 'wakeboard-marbella',               'nl' => 'wakeboarden-marbella' ],
-        'water-skiing-marbella'          => [ 'es' => 'esqui-acuatico',                   'fr' => 'ski-nautique-marbella',            'nl' => 'waterskien-marbella' ],
-        'pedal-boat'                     => [ 'es' => 'hidropedal-marbella',              'fr' => 'pedalo-marbella',                  'nl' => 'waterfiets-marbella' ],
-        'donut-watersports'              => [ 'es' => 'donut-acuatico',                   'fr' => 'bouee-donut-marbella',             'nl' => 'donut-ride-marbella' ],
-        'crazy-sofa-ride'                => [ 'es' => 'sofa-loco',                        'fr' => 'crazy-sofa-marbella',              'nl' => 'crazy-sofa-marbella' ],
-        'banana-boat-ride'               => [ 'es' => 'banana-boat',                      'fr' => 'banana-boat-marbella',             'nl' => 'bananenboot-marbella' ],
-        'air-stream-marbella'            => [ 'es' => 'air-stream-en-marbella',           'fr' => 'air-stream-marbella',              'nl' => 'air-stream-marbella' ],
-        'water-bull-ride'                => [ 'es' => 'water-bull',                       'fr' => 'water-bull-marbella',              'nl' => 'water-bull-marbella' ],
-        'paddleboarding-marbella'        => [ 'es' => 'paddle-surf',                     'fr' => 'paddle-surf-marbella',             'nl' => 'suppen-marbella' ],
-        'yacht-charter-marbella'         => [ 'es' => 'alquiler-yate-marbella',           'fr' => 'location-yacht-marbella',          'nl' => 'jacht-huren-marbella' ],
-        'azimut-39-fly'                  => [ 'es' => 'azimut-39-fly',                    'fr' => 'azimut-39-fly',                    'nl' => 'azimut-39-fly' ],
-        'sea-ray-240-sundeck'            => [ 'es' => 'sea-ray-sundeck',                  'fr' => 'sea-ray-240-sundeck-location',     'nl' => 'sea-ray-240-sundeck-huren' ],
-        'cranchi-endurance-boat-charter' => [ 'es' => 'cranchi-endurance',                'fr' => 'cranchi-endurance-39-location',    'nl' => 'cranchi-endurance-39-huren' ],
-        'catamaran-bali-charter'         => [ 'es' => 'catamaran-bali',                   'fr' => 'catamaran-bali-location',          'nl' => 'catamaran-bali-huren' ],
+        'closed-circuit-jet-ski'         => ['es' => 'circuito-cerrado-motos-acuaticas', 'fr' => 'circuit-ferme-jet-ski',            'nl' => 'gesloten-circuit-jetski'],
+        'jet-ski-excursion-fuengirola'   => ['es' => 'excursion-moto-agua-fuengirola',   'fr' => 'excursion-jet-ski-fuengirola',     'nl' => 'jetski-excursie-fuengirola'],
+        'jet-ski-tour-marbella'          => ['es' => 'excursion-moto-agua-marbella',     'fr' => 'tour-jet-ski-marbella',            'nl' => 'jetski-tour-marbella'],
+        'jet-ski-tour-puerto-banus'      => ['es' => 'tour-moto-agua-puerto-banus',      'fr' => 'tour-jet-ski-puerto-banus',        'nl' => 'jetski-tour-puerto-banus'],
+        'wakeboarding-experience'       => ['es' => 'wakeboard',                        'fr' => 'wakeboard-marbella',               'nl' => 'wakeboarden-marbella'],
+        'water-skiing-marbella'          => ['es' => 'esqui-acuatico',                   'fr' => 'ski-nautique-marbella',            'nl' => 'waterskien-marbella'],
+        'pedal-boat'                     => ['es' => 'hidropedal-marbella',              'fr' => 'pedalo-marbella',                  'nl' => 'waterfiets-marbella'],
+        'donut-watersports'              => ['es' => 'donut-acuatico',                   'fr' => 'bouee-donut-marbella',             'nl' => 'donut-ride-marbella'],
+        'crazy-sofa-ride'                => ['es' => 'sofa-loco',                        'fr' => 'crazy-sofa-marbella',              'nl' => 'crazy-sofa-marbella'],
+        'banana-boat-ride'               => ['es' => 'banana-boat',                      'fr' => 'banana-boat-marbella',             'nl' => 'bananenboot-marbella'],
+        'air-stream-marbella'            => ['es' => 'air-stream-en-marbella',           'fr' => 'air-stream-marbella',              'nl' => 'air-stream-marbella'],
+        'water-bull-ride'                => ['es' => 'water-bull',                       'fr' => 'water-bull-marbella',              'nl' => 'water-bull-marbella'],
+        'paddleboarding-marbella'        => ['es' => 'paddle-surf',                     'fr' => 'paddle-surf-marbella',             'nl' => 'suppen-marbella'],
+        'yacht-charter-marbella'         => ['es' => 'alquiler-yate-marbella',           'fr' => 'location-yacht-marbella',          'nl' => 'jacht-huren-marbella'],
+        'azimut-39-fly'                  => ['es' => 'azimut-39-fly',                    'fr' => 'azimut-39-fly',                    'nl' => 'azimut-39-fly'],
+        'sea-ray-240-sundeck'            => ['es' => 'sea-ray-sundeck',                  'fr' => 'sea-ray-240-sundeck-location',     'nl' => 'sea-ray-240-sundeck-huren'],
+        'cranchi-endurance-boat-charter' => ['es' => 'cranchi-endurance',                'fr' => 'cranchi-endurance-39-location',    'nl' => 'cranchi-endurance-39-huren'],
+        'catamaran-bali-charter'         => ['es' => 'catamaran-bali',                   'fr' => 'catamaran-bali-location',          'nl' => 'catamaran-bali-huren'],
     ];
 }
 
 /**
  * Given any service slug (in any language), return the EN slug.
  */
-function mjsk_resolve_en_service_slug( $slug ) {
+function mjsk_resolve_en_service_slug($slug)
+{
     $map = mjsk_service_slug_map();
     // If it's already an EN slug, return it
-    if ( isset( $map[ $slug ] ) ) return $slug;
+    if (isset($map[$slug])) return $slug;
     // Search through all mappings
-    foreach ( $map as $en_slug => $translations ) {
-        if ( in_array( $slug, $translations, true ) ) return $en_slug;
+    foreach ($map as $en_slug => $translations) {
+        if (in_array($slug, $translations, true)) return $en_slug;
     }
     return null; // not a service page
 }
@@ -137,44 +152,45 @@ function mjsk_resolve_en_service_slug( $slug ) {
 /**
  * Build URL for the same page in a different language.
  */
-function mjsk_get_page_in_lang( $target_lang ) {
-    $slug = get_post_field( 'post_name', get_the_ID() );
+function mjsk_get_page_in_lang($target_lang)
+{
+    $slug = get_post_field('post_name', get_the_ID());
     $current_lang = mjsk_get_lang();
 
     // Current page slug — resolve to page type
     $page_type = $slug;
-    if ( in_array( $slug, [ 'es', 'fr', 'nl', 'home' ], true ) ) {
+    if (in_array($slug, ['es', 'fr', 'nl', 'home'], true)) {
         $page_type = 'home';
     }
 
     // Check if this is a service page
-    $en_service_slug = mjsk_resolve_en_service_slug( $slug );
-    if ( $en_service_slug ) {
+    $en_service_slug = mjsk_resolve_en_service_slug($slug);
+    if ($en_service_slug) {
         $map = mjsk_service_slug_map();
-        if ( $target_lang === 'en' ) {
+        if ($target_lang === 'en') {
             $target_slug = $en_service_slug;
-            $base = home_url( '/' . $target_slug . '/' );
+            $base = home_url('/' . $target_slug . '/');
         } else {
-            $target_slug = $map[ $en_service_slug ][ $target_lang ] ?? $en_service_slug;
-            $base = home_url( '/' . $target_lang . '/' . $target_slug . '/' );
+            $target_slug = $map[$en_service_slug][$target_lang] ?? $en_service_slug;
+            $base = home_url('/' . $target_lang . '/' . $target_slug . '/');
         }
-        $qs = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
-        if ( ! empty( $qs ) ) $base .= '?' . $qs;
+        $qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        if (! empty($qs)) $base .= '?' . $qs;
         return $base;
     }
 
     // Build target URL for regular pages
-    if ( $page_type === 'home' ) {
-        $base = $target_lang === 'en' ? home_url( '/' ) : home_url( '/' . $target_lang . '/' );
+    if ($page_type === 'home') {
+        $base = $target_lang === 'en' ? home_url('/') : home_url('/' . $target_lang . '/');
     } else {
         $base = $target_lang === 'en'
-            ? home_url( '/' . $page_type . '/' )
-            : home_url( '/' . $target_lang . '/' . $page_type . '/' );
+            ? home_url('/' . $page_type . '/')
+            : home_url('/' . $target_lang . '/' . $page_type . '/');
     }
 
     // Preserve query string (e.g. ?promo=earlybird&yacht=rinker)
-    $qs = isset( $_SERVER['QUERY_STRING'] ) ? $_SERVER['QUERY_STRING'] : '';
-    if ( ! empty( $qs ) ) {
+    $qs = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+    if (! empty($qs)) {
         $base .= '?' . $qs;
     }
 
@@ -188,20 +204,21 @@ function mjsk_get_page_in_lang( $target_lang ) {
 /**
  * Returns array of [ code, flagCode, label, url, isActive ] for switcher.
  */
-function mjsk_get_lang_switcher() {
+function mjsk_get_lang_switcher()
+{
     $current = mjsk_get_lang();
 
     // If Polylang is active, use its language switcher data
-    if ( function_exists( 'pll_the_languages' ) ) {
-        $pll_langs = pll_the_languages( [ 'raw' => 1, 'hide_if_no_translation' => 0 ] );
-        if ( ! empty( $pll_langs ) ) {
-            $flag_map = [ 'en' => 'gb', 'es' => 'es', 'fr' => 'fr', 'nl' => 'nl' ];
+    if (function_exists('pll_the_languages')) {
+        $pll_langs = pll_the_languages(['raw' => 1, 'hide_if_no_translation' => 0]);
+        if (! empty($pll_langs)) {
+            $flag_map = ['en' => 'gb', 'es' => 'es', 'fr' => 'fr', 'nl' => 'nl'];
             $result   = [];
-            foreach ( $pll_langs as $pll ) {
+            foreach ($pll_langs as $pll) {
                 $code = $pll['slug'];
                 $result[] = [
                     $code,
-                    $flag_map[ $code ] ?? $code,
+                    $flag_map[$code] ?? $code,
                     $pll['name'],
                     $pll['url'],
                     $pll['current_lang'],
@@ -212,17 +229,17 @@ function mjsk_get_lang_switcher() {
     }
 
     $langs   = [
-        [ 'en', 'gb', 'English',    '', false ],
-        [ 'es', 'es', 'Español',    '', false ],
-        [ 'fr', 'fr', 'Français',   '', false ],
-        [ 'nl', 'nl', 'Nederlands', '', false ],
+        ['en', 'gb', 'English',    '', false],
+        ['es', 'es', 'Español',    '', false],
+        ['fr', 'fr', 'Français',   '', false],
+        ['nl', 'nl', 'Nederlands', '', false],
     ];
 
-    foreach ( $langs as &$l ) {
-        $l[3] = mjsk_get_page_in_lang( $l[0] );
-        $l[4] = ( $l[0] === $current );
+    foreach ($langs as &$l) {
+        $l[3] = mjsk_get_page_in_lang($l[0]);
+        $l[4] = ($l[0] === $current);
     }
-    unset( $l );
+    unset($l);
     return $langs;
 }
 
@@ -230,163 +247,166 @@ function mjsk_get_lang_switcher() {
    6.  NAVIGATION ITEMS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_get_nav_items( $lang = 'en' ) {
-    $home    = mjsk_get_home_url( $lang );
-    $lessons = $lang === 'en' ? home_url( '/lessons/' ) : home_url( '/' . $lang . '/lessons/' );
-    $about   = $lang === 'en' ? home_url( '/about-us/' ) : home_url( '/' . $lang . '/about-us/' );
-    $blog    = $lang === 'en' ? home_url( '/blog/' ) : home_url( '/' . $lang . '/blog/' );
+function mjsk_get_nav_items($lang = 'en')
+{
+    $home    = mjsk_get_home_url($lang);
+    $lessons = $lang === 'en' ? home_url('/lessons/') : home_url('/' . $lang . '/lessons/');
+    $about   = $lang === 'en' ? home_url('/about-us/') : home_url('/' . $lang . '/about-us/');
+    $blog    = $lang === 'en' ? home_url('/blog/') : home_url('/' . $lang . '/blog/');
     $p       = $lang === 'en' ? '/' : '/' . $lang . '/'; // prefix for service page slugs
 
     // Each item: [ label, url ]  OR  [ label, landing_url, [ [sub_label, sub_url], ... ] ]
     $items = [
         'en' => [
-            [ 'Home',    $home ],
-            [ 'Jet Ski', home_url( $p . 'jet-ski/' ), [
-                [ 'Circuit Jet Ski Experience',      home_url( $p . 'closed-circuit-jet-ski/' ) ],
-                [ 'Jet Ski Adventure to Fuengirola', home_url( $p . 'jet-ski-excursion-fuengirola/' ) ],
-                [ 'Jet Ski Tour Around Marbella',    home_url( $p . 'jet-ski-tour-marbella/' ) ],
-                [ 'Jet Ski Excursion to Puerto Banús', home_url( $p . 'jet-ski-tour-puerto-banus/' ) ],
+            ['Home',    $home],
+            ['Jet Ski', home_url($p . 'jet-ski/'), [
+                ['Circuit Jet Ski Experience',      home_url($p . 'closed-circuit-jet-ski/')],
+                ['Jet Ski Adventure to Fuengirola', home_url($p . 'jet-ski-excursion-fuengirola/')],
+                ['Jet Ski Tour Around Marbella',    home_url($p . 'jet-ski-tour-marbella/')],
+                ['Jet Ski Excursion to Puerto Banús', home_url($p . 'jet-ski-tour-puerto-banus/')],
             ]],
-            [ 'Water Activities', home_url( $p . 'water-activities/' ), [
-                [ 'Wakeboarding',    home_url( $p . 'wakeboarding-experience/' ) ],
-                [ 'Water Skiing',    home_url( $p . 'water-skiing-marbella/' ) ],
-                [ 'Pedal Boat',      home_url( $p . 'pedal-boat/' ) ],
-                [ 'Donut Rides',     home_url( $p . 'donut-watersports/' ) ],
-                [ 'Crazy Sofa',      home_url( $p . 'crazy-sofa-ride/' ) ],
-                [ 'Banana Boat',     home_url( $p . 'banana-boat-ride/' ) ],
-                [ 'Air Stream',      home_url( $p . 'air-stream-marbella/' ) ],
-                [ 'Water Bull',      home_url( $p . 'water-bull-ride/' ) ],
-                [ 'Paddleboarding',  home_url( $p . 'paddleboarding-marbella/' ) ],
+            ['Water Activities', home_url($p . 'water-activities/'), [
+                ['Wakeboarding',    home_url($p . 'wakeboarding-experience/')],
+                ['Water Skiing',    home_url($p . 'water-skiing-marbella/')],
+                ['Pedal Boat',      home_url($p . 'pedal-boat/')],
+                ['Donut Rides',     home_url($p . 'donut-watersports/')],
+                ['Crazy Sofa',      home_url($p . 'crazy-sofa-ride/')],
+                ['Banana Boat',     home_url($p . 'banana-boat-ride/')],
+                ['Air Stream',      home_url($p . 'air-stream-marbella/')],
+                ['Water Bull',      home_url($p . 'water-bull-ride/')],
+                ['Paddleboarding',  home_url($p . 'paddleboarding-marbella/')],
             ]],
-            [ 'Boat Hire', home_url( $p . 'boat-hire/' ), [
-                [ 'Yacht Charter',       home_url( $p . 'yacht-charter-marbella/' ) ],
-                [ 'Rinker 296 Captiva',  home_url( $p . 'sea-ray-240-sundeck/' ) ],
-                [ 'Cranchi Endurance',   home_url( $p . 'cranchi-endurance-boat-charter/' ) ],
-                [ 'Azimut 39 Fly',       home_url( $p . 'azimut-39-fly/' ) ],
-                [ 'Catamaran Bali 4.0',  home_url( $p . 'catamaran-bali-charter/' ) ],
+            ['Boat Hire', home_url($p . 'boat-hire/'), [
+                ['Yacht Charter',       home_url($p . 'yacht-charter-marbella/')],
+                ['Rinker 296 Captiva',  home_url($p . 'sea-ray-240-sundeck/')],
+                ['Cranchi Endurance',   home_url($p . 'cranchi-endurance-boat-charter/')],
+                ['Azimut 39 Fly',       home_url($p . 'azimut-39-fly/')],
+                ['Catamaran Bali 4.0',  home_url($p . 'catamaran-bali-charter/')],
             ]],
-            [ 'Lessons',  $lessons ],
-            [ 'About Us', $about ],
-            [ 'Blog',     $blog ],
-            [ 'Contact',  $home . '#contact' ],
+            ['Lessons',  $lessons],
+            ['About Us', $about],
+            ['Blog',     $blog],
+            ['Contact',  $home . '#contact'],
         ],
         'es' => [
-            [ 'Inicio',    $home ],
-            [ 'Motos de Agua', home_url( $p . 'motos-de-agua/' ), [
-                [ 'Circuito Cerrado',             home_url( $p . 'circuito-cerrado-motos-acuaticas/' ) ],
-                [ 'Excursión Fuengirola',         home_url( $p . 'excursion-moto-agua-fuengirola/' ) ],
-                [ 'Excursión Marbella',           home_url( $p . 'excursion-moto-agua-marbella/' ) ],
-                [ 'Tour Puerto Banús',            home_url( $p . 'tour-moto-agua-puerto-banus/' ) ],
+            ['Inicio',    $home],
+            ['Motos de Agua', home_url($p . 'motos-de-agua/'), [
+                ['Circuito Cerrado',             home_url($p . 'circuito-cerrado-motos-acuaticas/')],
+                ['Excursión Fuengirola',         home_url($p . 'excursion-moto-agua-fuengirola/')],
+                ['Excursión Marbella',           home_url($p . 'excursion-moto-agua-marbella/')],
+                ['Tour Puerto Banús',            home_url($p . 'tour-moto-agua-puerto-banus/')],
             ]],
-            [ 'Actividades Acuáticas', home_url( $p . 'actividades-acuaticas/' ), [
-                [ 'Wakeboard',           home_url( $p . 'wakeboard/' ) ],
-                [ 'Esquí Acuático',      home_url( $p . 'esqui-acuatico/' ) ],
-                [ 'Hidropedal',          home_url( $p . 'hidropedal-marbella/' ) ],
-                [ 'Donut Acuático',      home_url( $p . 'donut-acuatico/' ) ],
-                [ 'Sofá Loco',           home_url( $p . 'sofa-loco/' ) ],
-                [ 'Banana Boat',         home_url( $p . 'banana-boat/' ) ],
-                [ 'Air Stream',          home_url( $p . 'air-stream-en-marbella/' ) ],
-                [ 'Water Bull',          home_url( $p . 'water-bull/' ) ],
-                [ 'Paddle Surf',         home_url( $p . 'paddle-surf/' ) ],
+            ['Actividades Acuáticas', home_url($p . 'actividades-acuaticas/'), [
+                ['Wakeboard',           home_url($p . 'wakeboard/')],
+                ['Esquí Acuático',      home_url($p . 'esqui-acuatico/')],
+                ['Hidropedal',          home_url($p . 'hidropedal-marbella/')],
+                ['Donut Acuático',      home_url($p . 'donut-acuatico/')],
+                ['Sofá Loco',           home_url($p . 'sofa-loco/')],
+                ['Banana Boat',         home_url($p . 'banana-boat/')],
+                ['Air Stream',          home_url($p . 'air-stream-en-marbella/')],
+                ['Water Bull',          home_url($p . 'water-bull/')],
+                ['Paddle Surf',         home_url($p . 'paddle-surf/')],
             ]],
-            [ 'Alquiler Barcos', home_url( $p . 'alquiler-barcos/' ), [
-                [ 'Alquiler de Yates',   home_url( $p . 'alquiler-yate-marbella/' ) ],
-                [ 'Rinker 296 Captiva',  home_url( $p . 'sea-ray-sundeck/' ) ],
-                [ 'Cranchi Endurance',   home_url( $p . 'cranchi-endurance/' ) ],
-                [ 'Azimut 39 Fly',       home_url( $p . 'azimut-39-fly/' ) ],
-                [ 'Catamarán Bali 4.0',  home_url( $p . 'catamaran-bali/' ) ],
+            ['Alquiler Barcos', home_url($p . 'alquiler-barcos/'), [
+                ['Alquiler de Yates',   home_url($p . 'alquiler-yate-marbella/')],
+                ['Rinker 296 Captiva',  home_url($p . 'sea-ray-sundeck/')],
+                ['Cranchi Endurance',   home_url($p . 'cranchi-endurance/')],
+                ['Azimut 39 Fly',       home_url($p . 'azimut-39-fly/')],
+                ['Catamarán Bali 4.0',  home_url($p . 'catamaran-bali/')],
             ]],
-            [ 'Clases',         $lessons ],
-            [ 'Sobre Nosotros', $about ],
-            [ 'Blog',           $blog ],
-            [ 'Contacto',       $home . '#contact' ],
+            ['Clases',         $lessons],
+            ['Sobre Nosotros', $about],
+            ['Blog',           $blog],
+            ['Contacto',       $home . '#contact'],
         ],
         'fr' => [
-            [ 'Accueil',    $home ],
-            [ 'Jet Ski', home_url( $p . 'jet-ski/' ), [
-                [ 'Circuit Fermé',            home_url( $p . 'circuit-ferme-jet-ski/' ) ],
-                [ 'Excursion Fuengirola',     home_url( $p . 'excursion-jet-ski-fuengirola/' ) ],
-                [ 'Tour Marbella',            home_url( $p . 'tour-jet-ski-marbella/' ) ],
-                [ 'Tour Puerto Banús',        home_url( $p . 'tour-jet-ski-puerto-banus/' ) ],
+            ['Accueil',    $home],
+            ['Jet Ski', home_url($p . 'jet-ski/'), [
+                ['Circuit Fermé',            home_url($p . 'circuit-ferme-jet-ski/')],
+                ['Excursion Fuengirola',     home_url($p . 'excursion-jet-ski-fuengirola/')],
+                ['Tour Marbella',            home_url($p . 'tour-jet-ski-marbella/')],
+                ['Tour Puerto Banús',        home_url($p . 'tour-jet-ski-puerto-banus/')],
             ]],
-            [ 'Activités Nautiques', home_url( $p . 'activites-nautiques/' ), [
-                [ 'Wakeboard',       home_url( $p . 'wakeboard-marbella/' ) ],
-                [ 'Ski Nautique',    home_url( $p . 'ski-nautique-marbella/' ) ],
-                [ 'Pédalo',          home_url( $p . 'pedalo-marbella/' ) ],
-                [ 'Donut',           home_url( $p . 'bouee-donut-marbella/' ) ],
-                [ 'Crazy Sofa',      home_url( $p . 'crazy-sofa-marbella/' ) ],
-                [ 'Banana Boat',     home_url( $p . 'banana-boat-marbella/' ) ],
-                [ 'Air Stream',      home_url( $p . 'air-stream-marbella/' ) ],
-                [ 'Water Bull',      home_url( $p . 'water-bull-marbella/' ) ],
-                [ 'Paddle',          home_url( $p . 'paddle-surf-marbella/' ) ],
+            ['Activités Nautiques', home_url($p . 'activites-nautiques/'), [
+                ['Wakeboard',       home_url($p . 'wakeboard-marbella/')],
+                ['Ski Nautique',    home_url($p . 'ski-nautique-marbella/')],
+                ['Pédalo',          home_url($p . 'pedalo-marbella/')],
+                ['Donut',           home_url($p . 'bouee-donut-marbella/')],
+                ['Crazy Sofa',      home_url($p . 'crazy-sofa-marbella/')],
+                ['Banana Boat',     home_url($p . 'banana-boat-marbella/')],
+                ['Air Stream',      home_url($p . 'air-stream-marbella/')],
+                ['Water Bull',      home_url($p . 'water-bull-marbella/')],
+                ['Paddle',          home_url($p . 'paddle-surf-marbella/')],
             ]],
-            [ 'Location Bateaux', home_url( $p . 'location-bateaux/' ), [
-                [ 'Location de Yacht',   home_url( $p . 'location-yacht-marbella/' ) ],
-                [ 'Rinker 296 Captiva',  home_url( $p . 'sea-ray-240-sundeck-location/' ) ],
-                [ 'Cranchi Endurance',   home_url( $p . 'cranchi-endurance-39-location/' ) ],
-                [ 'Azimut 39 Fly',       home_url( $p . 'azimut-39-fly/' ) ],
-                [ 'Catamaran Bali 4.0',  home_url( $p . 'catamaran-bali-location/' ) ],
+            ['Location Bateaux', home_url($p . 'location-bateaux/'), [
+                ['Location de Yacht',   home_url($p . 'location-yacht-marbella/')],
+                ['Rinker 296 Captiva',  home_url($p . 'sea-ray-240-sundeck-location/')],
+                ['Cranchi Endurance',   home_url($p . 'cranchi-endurance-39-location/')],
+                ['Azimut 39 Fly',       home_url($p . 'azimut-39-fly/')],
+                ['Catamaran Bali 4.0',  home_url($p . 'catamaran-bali-location/')],
             ]],
-            [ 'Cours',     $lessons ],
-            [ 'À Propos',  $about ],
-            [ 'Blog',      $blog ],
-            [ 'Contact',   $home . '#contact' ],
+            ['Cours',     $lessons],
+            ['À Propos',  $about],
+            ['Blog',      $blog],
+            ['Contact',   $home . '#contact'],
         ],
         'nl' => [
-            [ 'Home',    $home ],
-            [ 'Jetski', home_url( $p . 'jetski/' ), [
-                [ 'Gesloten Circuit',         home_url( $p . 'gesloten-circuit-jetski/' ) ],
-                [ 'Excursie Fuengirola',      home_url( $p . 'jetski-excursie-fuengirola/' ) ],
-                [ 'Tour Marbella',            home_url( $p . 'jetski-tour-marbella/' ) ],
-                [ 'Tour Puerto Banús',        home_url( $p . 'jetski-tour-puerto-banus/' ) ],
+            ['Home',    $home],
+            ['Jetski', home_url($p . 'jetski/'), [
+                ['Gesloten Circuit',         home_url($p . 'gesloten-circuit-jetski/')],
+                ['Excursie Fuengirola',      home_url($p . 'jetski-excursie-fuengirola/')],
+                ['Tour Marbella',            home_url($p . 'jetski-tour-marbella/')],
+                ['Tour Puerto Banús',        home_url($p . 'jetski-tour-puerto-banus/')],
             ]],
-            [ 'Wateractiviteiten', home_url( $p . 'wateractiviteiten/' ), [
-                [ 'Wakeboarden',     home_url( $p . 'wakeboarden-marbella/' ) ],
-                [ 'Waterskiën',      home_url( $p . 'waterskien-marbella/' ) ],
-                [ 'Waterfiets',      home_url( $p . 'waterfiets-marbella/' ) ],
-                [ 'Donut',           home_url( $p . 'donut-ride-marbella/' ) ],
-                [ 'Crazy Sofa',      home_url( $p . 'crazy-sofa-marbella/' ) ],
-                [ 'Bananenboot',     home_url( $p . 'bananenboot-marbella/' ) ],
-                [ 'Air Stream',      home_url( $p . 'air-stream-marbella/' ) ],
-                [ 'Water Bull',      home_url( $p . 'water-bull-marbella/' ) ],
-                [ 'Suppen',          home_url( $p . 'suppen-marbella/' ) ],
+            ['Wateractiviteiten', home_url($p . 'wateractiviteiten/'), [
+                ['Wakeboarden',     home_url($p . 'wakeboarden-marbella/')],
+                ['Waterskiën',      home_url($p . 'waterskien-marbella/')],
+                ['Waterfiets',      home_url($p . 'waterfiets-marbella/')],
+                ['Donut',           home_url($p . 'donut-ride-marbella/')],
+                ['Crazy Sofa',      home_url($p . 'crazy-sofa-marbella/')],
+                ['Bananenboot',     home_url($p . 'bananenboot-marbella/')],
+                ['Air Stream',      home_url($p . 'air-stream-marbella/')],
+                ['Water Bull',      home_url($p . 'water-bull-marbella/')],
+                ['Suppen',          home_url($p . 'suppen-marbella/')],
             ]],
-            [ 'Boot Huren', home_url( $p . 'boot-huren/' ), [
-                [ 'Jacht Huren',         home_url( $p . 'jacht-huren-marbella/' ) ],
-                [ 'Rinker 296 Captiva',  home_url( $p . 'sea-ray-240-sundeck-huren/' ) ],
-                [ 'Cranchi Endurance',   home_url( $p . 'cranchi-endurance-39-huren/' ) ],
-                [ 'Azimut 39 Fly',       home_url( $p . 'azimut-39-fly/' ) ],
-                [ 'Catamaran Bali 4.0',  home_url( $p . 'catamaran-bali-huren/' ) ],
+            ['Boot Huren', home_url($p . 'boot-huren/'), [
+                ['Jacht Huren',         home_url($p . 'jacht-huren-marbella/')],
+                ['Rinker 296 Captiva',  home_url($p . 'sea-ray-240-sundeck-huren/')],
+                ['Cranchi Endurance',   home_url($p . 'cranchi-endurance-39-huren/')],
+                ['Azimut 39 Fly',       home_url($p . 'azimut-39-fly/')],
+                ['Catamaran Bali 4.0',  home_url($p . 'catamaran-bali-huren/')],
             ]],
-            [ 'Lessen',   $lessons ],
-            [ 'Over Ons', $about ],
-            [ 'Blog',     $blog ],
-            [ 'Contact',  $home . '#contact' ],
+            ['Lessen',   $lessons],
+            ['Over Ons', $about],
+            ['Blog',     $blog],
+            ['Contact',  $home . '#contact'],
         ],
     ];
 
-    return $items[ $lang ] ?? $items['en'];
+    return $items[$lang] ?? $items['en'];
 }
 
 /* ═══════════════════════════════════════════════════════════════
    7.  CTA BUTTON TEXT
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_get_cta_text( $lang = 'en' ) {
+function mjsk_get_cta_text($lang = 'en')
+{
     $map = [
         'en' => 'Book Now',
         'es' => 'Reservar',
         'fr' => 'Réserver',
         'nl' => 'Boeken',
     ];
-    return $map[ $lang ] ?? $map['en'];
+    return $map[$lang] ?? $map['en'];
 }
 
 /* ═══════════════════════════════════════════════════════════════
    8.  THEME OPTIONS  (Customizer with hardcoded defaults)
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_get( $key ) {
+function mjsk_get($key)
+{
     $defaults = [
         'mjsk_phone'          => '+34 655 442 232',
         'mjsk_whatsapp'       => '34655442232',
@@ -403,39 +423,40 @@ function mjsk_get( $key ) {
         'mjsk_promo_text'     => 'Early bird discount on all jet ski & yacht bookings for June–September 2026',
     ];
 
-    $mod_key = str_replace( 'mjsk_', '', $key );
-    $value   = get_theme_mod( $mod_key, null );
+    $mod_key = str_replace('mjsk_', '', $key);
+    $value   = get_theme_mod($mod_key, null);
 
-    if ( $value !== null ) return $value;
-    return $defaults[ $key ] ?? '';
+    if ($value !== null) return $value;
+    return $defaults[$key] ?? '';
 }
 
 /* ═══════════════════════════════════════════════════════════════
    9.  TRANSLATIONS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_t( $key ) {
+function mjsk_t($key)
+{
     $lang = mjsk_get_lang();
 
     $strings = [
-        'quick_links'   => [ 'en' => 'Quick Links',    'es' => 'Enlaces Rápidos',  'fr' => 'Liens Rapides',   'nl' => 'Snelle Links' ],
-        'services'      => [ 'en' => 'Services',       'es' => 'Servicios',        'fr' => 'Services',        'nl' => 'Diensten' ],
-        'jetski'        => [ 'en' => 'Jet Ski',        'es' => 'Motos de Agua',    'fr' => 'Jet Ski',         'nl' => 'Jetski' ],
-        'watersports'   => [ 'en' => 'Water Sports',   'es' => 'Deportes Acuáticos','fr' => 'Sports Nautiques','nl' => 'Watersporten' ],
-        'yachts'        => [ 'en' => 'Yachts',         'es' => 'Yates',            'fr' => 'Yachts',          'nl' => 'Jachten' ],
-        'about'         => [ 'en' => 'About Us',       'es' => 'Sobre Nosotros',   'fr' => 'À Propos',        'nl' => 'Over Ons' ],
-        'racing'        => [ 'en' => 'Racing',         'es' => 'Competición',       'fr' => 'Course',          'nl' => 'Racen' ],
-        'book_now'      => [ 'en' => 'Book Now',       'es' => 'Reservar',         'fr' => 'Réserver',        'nl' => 'Boeken' ],
-        'information'   => [ 'en' => 'Information',    'es' => 'Información',      'fr' => 'Informations',    'nl' => 'Informatie' ],
-        'faq'           => [ 'en' => 'FAQ',            'es' => 'Preguntas Frecuentes', 'fr' => 'FAQ',         'nl' => 'Veelgestelde Vragen' ],
-        'book_online'   => [ 'en' => 'Book Online',    'es' => 'Reservar Online',  'fr' => 'Réserver en Ligne','nl' => 'Online Boeken' ],
-        'legal'         => [ 'en' => 'Legal Notice',   'es' => 'Aviso Legal',      'fr' => 'Mentions Légales','nl' => 'Juridische Kennisgeving' ],
-        'terms_cond'    => [ 'en' => 'Terms & Conditions', 'es' => 'Términos y Condiciones', 'fr' => 'Conditions Générales', 'nl' => 'Algemene Voorwaarden' ],
-        'privacy'       => [ 'en' => 'Privacy Policy', 'es' => 'Política de Privacidad', 'fr' => 'Politique de Confidentialité', 'nl' => 'Privacybeleid' ],
-        'cancel'        => [ 'en' => 'Cancellation',   'es' => 'Cancelación',      'fr' => 'Annulation',      'nl' => 'Annulering' ],
-        'weather'       => [ 'en' => 'Weather Policy', 'es' => 'Política Meteorológica', 'fr' => 'Politique Météo', 'nl' => 'Weerbeleid' ],
-        'cookies'       => [ 'en' => 'Cookies',        'es' => 'Cookies',          'fr' => 'Cookies',         'nl' => 'Cookies' ],
-        'contact_us'    => [ 'en' => 'Contact Us',     'es' => 'Contáctanos',      'fr' => 'Contactez-nous',  'nl' => 'Neem Contact Op' ],
+        'quick_links'   => ['en' => 'Quick Links',    'es' => 'Enlaces Rápidos',  'fr' => 'Liens Rapides',   'nl' => 'Snelle Links'],
+        'services'      => ['en' => 'Services',       'es' => 'Servicios',        'fr' => 'Services',        'nl' => 'Diensten'],
+        'jetski'        => ['en' => 'Jet Ski',        'es' => 'Motos de Agua',    'fr' => 'Jet Ski',         'nl' => 'Jetski'],
+        'watersports'   => ['en' => 'Water Sports',   'es' => 'Deportes Acuáticos', 'fr' => 'Sports Nautiques', 'nl' => 'Watersporten'],
+        'yachts'        => ['en' => 'Yachts',         'es' => 'Yates',            'fr' => 'Yachts',          'nl' => 'Jachten'],
+        'about'         => ['en' => 'About Us',       'es' => 'Sobre Nosotros',   'fr' => 'À Propos',        'nl' => 'Over Ons'],
+        'racing'        => ['en' => 'Racing',         'es' => 'Competición',       'fr' => 'Course',          'nl' => 'Racen'],
+        'book_now'      => ['en' => 'Book Now',       'es' => 'Reservar',         'fr' => 'Réserver',        'nl' => 'Boeken'],
+        'information'   => ['en' => 'Information',    'es' => 'Información',      'fr' => 'Informations',    'nl' => 'Informatie'],
+        'faq'           => ['en' => 'FAQ',            'es' => 'Preguntas Frecuentes', 'fr' => 'FAQ',         'nl' => 'Veelgestelde Vragen'],
+        'book_online'   => ['en' => 'Book Online',    'es' => 'Reservar Online',  'fr' => 'Réserver en Ligne', 'nl' => 'Online Boeken'],
+        'legal'         => ['en' => 'Legal Notice',   'es' => 'Aviso Legal',      'fr' => 'Mentions Légales', 'nl' => 'Juridische Kennisgeving'],
+        'terms_cond'    => ['en' => 'Terms & Conditions', 'es' => 'Términos y Condiciones', 'fr' => 'Conditions Générales', 'nl' => 'Algemene Voorwaarden'],
+        'privacy'       => ['en' => 'Privacy Policy', 'es' => 'Política de Privacidad', 'fr' => 'Politique de Confidentialité', 'nl' => 'Privacybeleid'],
+        'cancel'        => ['en' => 'Cancellation',   'es' => 'Cancelación',      'fr' => 'Annulation',      'nl' => 'Annulering'],
+        'weather'       => ['en' => 'Weather Policy', 'es' => 'Política Meteorológica', 'fr' => 'Politique Météo', 'nl' => 'Weerbeleid'],
+        'cookies'       => ['en' => 'Cookies',        'es' => 'Cookies',          'fr' => 'Cookies',         'nl' => 'Cookies'],
+        'contact_us'    => ['en' => 'Contact Us',     'es' => 'Contáctanos',      'fr' => 'Contactez-nous',  'nl' => 'Neem Contact Op'],
         'designed'      => [
             'en' => 'Designed with 💙 for Summer 2026',
             'es' => 'Diseñado con 💙 para Verano 2026',
@@ -630,11 +651,11 @@ function mjsk_t( $key ) {
         ],
     ];
 
-    if ( isset( $strings[ $key ][ $lang ] ) ) {
-        return $strings[ $key ][ $lang ];
+    if (isset($strings[$key][$lang])) {
+        return $strings[$key][$lang];
     }
     // Fallback to English
-    return $strings[ $key ]['en'] ?? $key;
+    return $strings[$key]['en'] ?? $key;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -645,9 +666,10 @@ function mjsk_t( $key ) {
  * Load an HTML content file from page-content/ directory.
  * Returns the HTML string with template directory URLs resolved.
  */
-function mjsk_load_page_content( $filename ) {
+function mjsk_load_page_content($filename)
+{
     $filepath = get_template_directory() . '/page-content/' . $filename;
-    if ( ! file_exists( $filepath ) ) return '';
+    if (! file_exists($filepath)) return '';
 
     ob_start();
     include $filepath;
@@ -657,25 +679,26 @@ function mjsk_load_page_content( $filename ) {
 /**
  * Map the current page to its content file.
  */
-function mjsk_get_content_file_for_page() {
-    $slug = get_post_field( 'post_name', get_the_ID() );
+function mjsk_get_content_file_for_page()
+{
+    $slug = get_post_field('post_name', get_the_ID());
     $lang = mjsk_get_lang();
 
     // Language homepages: slug = 'es', 'fr', 'nl'
-    if ( in_array( $slug, [ 'es', 'fr', 'nl' ], true ) ) {
+    if (in_array($slug, ['es', 'fr', 'nl'], true)) {
         return $slug . '-home.html';
     }
 
     // Check for service landing page content file first
-    $prefix = ( $lang !== 'en' ) ? $lang . '-' : '';
+    $prefix = ($lang !== 'en') ? $lang . '-' : '';
     $service_file = $prefix . 'service-' . $slug . '.html';
     $service_path = get_template_directory() . '/page-content/' . $service_file;
-    if ( file_exists( $service_path ) ) {
+    if (file_exists($service_path)) {
         return $service_file;
     }
 
     // English pages: booking, terms, weather-policy, about-us, lessons
-    if ( $lang === 'en' ) {
+    if ($lang === 'en') {
         return $slug . '.html';
     }
 
@@ -687,13 +710,14 @@ function mjsk_get_content_file_for_page() {
    11. ENQUEUE STYLES & SCRIPTS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_enqueue_assets() {
+function mjsk_enqueue_assets()
+{
     // Main stylesheet
     wp_enqueue_style(
         'mjsk-main',
         get_template_directory_uri() . '/assets/css/main.min.css',
         [],
-        filemtime( get_template_directory() . '/assets/css/main.min.css' )
+        filemtime(get_template_directory() . '/assets/css/main.min.css')
     );
 
     // Font Awesome 6
@@ -747,20 +771,21 @@ function mjsk_enqueue_assets() {
         'mjsk-script',
         get_template_directory_uri() . '/assets/js/script.min.js',
         [],
-        filemtime( get_template_directory() . '/assets/js/script.min.js' ),
+        filemtime(get_template_directory() . '/assets/js/script.min.js'),
         true
     );
 }
-add_action( 'wp_enqueue_scripts', 'mjsk_enqueue_assets' );
+add_action('wp_enqueue_scripts', 'mjsk_enqueue_assets');
 
 /**
  * Defer non-critical CSS (AOS, Swiper, Font Awesome) to eliminate render-blocking.
  * Google Fonts already uses &display=swap; AOS/Swiper/FA are not needed for initial paint.
  */
-function mjsk_defer_noncritical_css( $html, $handle ) {
-    $defer_handles = [ 'aos-css', 'swiper-css', 'font-awesome', 'google-fonts' ];
+function mjsk_defer_noncritical_css($html, $handle)
+{
+    $defer_handles = ['aos-css', 'swiper-css', 'font-awesome', 'google-fonts'];
 
-    if ( in_array( $handle, $defer_handles, true ) && ! is_admin() ) {
+    if (in_array($handle, $defer_handles, true) && ! is_admin()) {
         // Replace media="all" with media="print" + onload swap
         $html = str_replace(
             "media='all'",
@@ -769,8 +794,8 @@ function mjsk_defer_noncritical_css( $html, $handle ) {
         );
         // Add noscript fallback
         $noscript = '<noscript>' . str_replace(
-            [ "media='print'", " onload=\"this.media='all'\"" ],
-            [ "media='all'", '' ],
+            ["media='print'", " onload=\"this.media='all'\""],
+            ["media='all'", ''],
             $html
         ) . '</noscript>';
         $html .= $noscript;
@@ -778,47 +803,50 @@ function mjsk_defer_noncritical_css( $html, $handle ) {
 
     return $html;
 }
-add_filter( 'style_loader_tag', 'mjsk_defer_noncritical_css', 10, 2 );
+add_filter('style_loader_tag', 'mjsk_defer_noncritical_css', 10, 2);
 
 /**
  * Add defer attribute to non-critical JavaScript loaded in footer.
  */
-function mjsk_defer_scripts( $tag, $handle ) {
-    $defer_handles = [ 'swiper-js', 'aos-js', 'mjsk-script' ];
-    if ( in_array( $handle, $defer_handles, true ) && ! is_admin() ) {
-        $tag = str_replace( ' src=', ' defer src=', $tag );
+function mjsk_defer_scripts($tag, $handle)
+{
+    $defer_handles = ['swiper-js', 'aos-js', 'mjsk-script'];
+    if (in_array($handle, $defer_handles, true) && ! is_admin()) {
+        $tag = str_replace(' src=', ' defer src=', $tag);
     }
     return $tag;
 }
-add_filter( 'script_loader_tag', 'mjsk_defer_scripts', 10, 2 );
+add_filter('script_loader_tag', 'mjsk_defer_scripts', 10, 2);
 
 /**
  * Preload LCP image on homepage for faster paint.
  */
-function mjsk_preload_lcp() {
-    if ( is_front_page() || mjsk_is_homepage() ) {
+function mjsk_preload_lcp()
+{
+    if (is_front_page() || mjsk_is_homepage()) {
         echo '<link rel="preload" as="image" href="/wp-content/themes/marbellajetski/assets/media/photos/wp-uploads/18328-mar-scaled.webp" type="image/webp" fetchpriority="high" />' . "\n";
     }
 }
-add_action( 'wp_head', 'mjsk_preload_lcp', 3 );
+add_action('wp_head', 'mjsk_preload_lcp', 3);
 
 /* ═══════════════════════════════════════════════════════════════
    12. THEME SETUP
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_theme_setup() {
-    add_theme_support( 'title-tag' );
-    add_theme_support( 'post-thumbnails' );
-    add_theme_support( 'html5', [ 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ] );
+function mjsk_theme_setup()
+{
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
 
     // WooCommerce support
-    add_theme_support( 'woocommerce' );
-    add_theme_support( 'wc-product-gallery-zoom' );
-    add_theme_support( 'wc-product-gallery-lightbox' );
-    add_theme_support( 'wc-product-gallery-slider' );
+    add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
 
     // Register navigation menus
-    register_nav_menus( [
+    register_nav_menus([
         'primary-en' => 'Primary Navigation (English)',
         'primary-es' => 'Primary Navigation (Español)',
         'primary-fr' => 'Primary Navigation (Français)',
@@ -827,20 +855,21 @@ function mjsk_theme_setup() {
         'footer-es'  => 'Footer Navigation (Español)',
         'footer-fr'  => 'Footer Navigation (Français)',
         'footer-nl'  => 'Footer Navigation (Nederlands)',
-    ] );
+    ]);
 }
-add_action( 'after_setup_theme', 'mjsk_theme_setup' );
+add_action('after_setup_theme', 'mjsk_theme_setup');
 
 /* ═══════════════════════════════════════════════════════════════
    13. CUSTOMIZER SECTIONS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_customizer( $wp_customize ) {
+function mjsk_customizer($wp_customize)
+{
     // Contact Details section
-    $wp_customize->add_section( 'mjsk_contact', [
+    $wp_customize->add_section('mjsk_contact', [
         'title'    => 'Contact Details',
         'priority' => 30,
-    ] );
+    ]);
 
     $fields = [
         'phone'     => 'Phone Number',
@@ -850,79 +879,80 @@ function mjsk_customizer( $wp_customize ) {
         'hours'     => 'Opening Hours',
     ];
 
-    foreach ( $fields as $id => $label ) {
-        $wp_customize->add_setting( $id, [ 'default' => '' ] );
-        $wp_customize->add_control( $id, [
+    foreach ($fields as $id => $label) {
+        $wp_customize->add_setting($id, ['default' => '']);
+        $wp_customize->add_control($id, [
             'label'   => $label,
             'section' => 'mjsk_contact',
             'type'    => 'text',
-        ] );
+        ]);
     }
 
     // Social Media section
-    $wp_customize->add_section( 'mjsk_social', [
+    $wp_customize->add_section('mjsk_social', [
         'title'    => 'Social Media',
         'priority' => 31,
-    ] );
+    ]);
 
-    $socials = [ 'facebook', 'instagram', 'tiktok', 'youtube', 'tripadvisor' ];
-    foreach ( $socials as $s ) {
-        $wp_customize->add_setting( $s, [ 'default' => '' ] );
-        $wp_customize->add_control( $s, [
-            'label'   => ucfirst( $s ) . ' URL',
+    $socials = ['facebook', 'instagram', 'tiktok', 'youtube', 'tripadvisor'];
+    foreach ($socials as $s) {
+        $wp_customize->add_setting($s, ['default' => '']);
+        $wp_customize->add_control($s, [
+            'label'   => ucfirst($s) . ' URL',
             'section' => 'mjsk_social',
             'type'    => 'url',
-        ] );
+        ]);
     }
 
     // Promo Banner section
-    $wp_customize->add_section( 'mjsk_promo', [
+    $wp_customize->add_section('mjsk_promo', [
         'title'    => 'Promo Banner',
         'priority' => 32,
-    ] );
+    ]);
 
-    $wp_customize->add_setting( 'promo_enabled', [ 'default' => true ] );
-    $wp_customize->add_control( 'promo_enabled', [
+    $wp_customize->add_setting('promo_enabled', ['default' => true]);
+    $wp_customize->add_control('promo_enabled', [
         'label'   => 'Enable Promo Banner',
         'section' => 'mjsk_promo',
         'type'    => 'checkbox',
-    ] );
+    ]);
 
-    $wp_customize->add_setting( 'promo_title', [ 'default' => '' ] );
-    $wp_customize->add_control( 'promo_title', [
+    $wp_customize->add_setting('promo_title', ['default' => '']);
+    $wp_customize->add_control('promo_title', [
         'label'   => 'Promo Title',
         'section' => 'mjsk_promo',
         'type'    => 'text',
-    ] );
+    ]);
 
-    $wp_customize->add_setting( 'promo_text', [ 'default' => '' ] );
-    $wp_customize->add_control( 'promo_text', [
+    $wp_customize->add_setting('promo_text', ['default' => '']);
+    $wp_customize->add_control('promo_text', [
         'label'   => 'Promo Description',
         'section' => 'mjsk_promo',
         'type'    => 'textarea',
-    ] );
+    ]);
 }
-add_action( 'customize_register', 'mjsk_customizer' );
+add_action('customize_register', 'mjsk_customizer');
 
 /* ═══════════════════════════════════════════════════════════════
    14. AUTO-SETUP  (create pages on first activation)
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_auto_setup() {
-    if ( get_option( 'mjsk_setup_done' ) ) return;
+function mjsk_auto_setup()
+{
+    if (get_option('mjsk_setup_done')) return;
 
     // Page definitions: slug => [ title, parent_slug ]
     $pages = [
-        'home'             => [ 'Home', '' ],
-        'booking'          => [ 'Book Now', '' ],
-        'terms'            => [ 'Terms', '' ],
-        'weather-policy'   => [ 'Weather Policy', '' ],
-        'about-us'         => [ 'About Us', '' ],
-        'lessons'          => [ 'Lessons', '' ],
-        'blog'             => [ 'Blog', '' ],
-        'es'               => [ 'Inicio', '' ],
-        'fr'               => [ 'Accueil', '' ],
-        'nl'               => [ 'Home NL', '' ],
+        'home'             => ['Home', ''],
+        'booking'          => ['Book Now', ''],
+        'terms'            => ['Terms', ''],
+        'weather-policy'   => ['Weather Policy', ''],
+        'about-us'         => ['About Us', ''],
+        'lessons'          => ['Lessons', ''],
+        'blog'             => ['Blog', ''],
+        'es'               => ['Inicio', ''],
+        'fr'               => ['Accueil', ''],
+        'nl'               => ['Home NL', ''],
     ];
 
     // Language sub-pages
@@ -956,61 +986,61 @@ function mjsk_auto_setup() {
     $created = [];
 
     // Create top-level pages
-    foreach ( $pages as $slug => $info ) {
-        $existing = get_page_by_path( $slug );
-        if ( $existing ) {
-            $created[ $slug ] = $existing->ID;
+    foreach ($pages as $slug => $info) {
+        $existing = get_page_by_path($slug);
+        if ($existing) {
+            $created[$slug] = $existing->ID;
             continue;
         }
 
-        $id = wp_insert_post( [
+        $id = wp_insert_post([
             'post_title'  => $info[0],
             'post_name'   => $slug,
             'post_type'   => 'page',
             'post_status' => 'publish',
-        ] );
+        ]);
 
-        if ( ! is_wp_error( $id ) ) $created[ $slug ] = $id;
+        if (! is_wp_error($id)) $created[$slug] = $id;
     }
 
     // Create language sub-pages
-    foreach ( $lang_pages as $lang => $subpages ) {
-        $parent_id = $created[ $lang ] ?? 0;
-        foreach ( $subpages as $slug => $title ) {
+    foreach ($lang_pages as $lang => $subpages) {
+        $parent_id = $created[$lang] ?? 0;
+        foreach ($subpages as $slug => $title) {
             $full_path = $lang . '/' . $slug;
-            $existing  = get_page_by_path( $full_path );
-            if ( $existing ) continue;
+            $existing  = get_page_by_path($full_path);
+            if ($existing) continue;
 
-            wp_insert_post( [
+            wp_insert_post([
                 'post_title'  => $title,
                 'post_name'   => $slug,
                 'post_parent' => $parent_id,
                 'post_type'   => 'page',
                 'post_status' => 'publish',
-            ] );
+            ]);
         }
     }
 
     // Set homepage
-    if ( isset( $created['home'] ) ) {
-        update_option( 'show_on_front', 'page' );
-        update_option( 'page_on_front', $created['home'] );
+    if (isset($created['home'])) {
+        update_option('show_on_front', 'page');
+        update_option('page_on_front', $created['home']);
     }
 
     // Assign blog template (do NOT set page_for_posts — our custom template handles the query)
-    if ( isset( $created['blog'] ) ) {
-        update_post_meta( $created['blog'], '_wp_page_template', 'page-blog.php' );
+    if (isset($created['blog'])) {
+        update_post_meta($created['blog'], '_wp_page_template', 'page-blog.php');
     }
     // Assign blog template to language sub-pages
-    foreach ( ['es', 'fr', 'nl'] as $blang ) {
-        $blog_page = get_page_by_path( $blang . '/blog' );
-        if ( $blog_page ) {
-            update_post_meta( $blog_page->ID, '_wp_page_template', 'page-blog.php' );
+    foreach (['es', 'fr', 'nl'] as $blang) {
+        $blog_page = get_page_by_path($blang . '/blog');
+        if ($blog_page) {
+            update_post_meta($blog_page->ID, '_wp_page_template', 'page-blog.php');
         }
     }
 
     // Set permalinks
-    update_option( 'permalink_structure', '/%postname%/' );
+    update_option('permalink_structure', '/%postname%/');
 
     // ── Service Landing Pages ──────────────────────────────────────
     // EN services (top-level): slug => title
@@ -1066,42 +1096,42 @@ function mjsk_auto_setup() {
     $template_file = 'page-service-landing.php';
 
     // Create EN service pages (top-level)
-    foreach ( $en_services as $slug => $title ) {
-        $existing = get_page_by_path( $slug );
-        if ( $existing ) {
+    foreach ($en_services as $slug => $title) {
+        $existing = get_page_by_path($slug);
+        if ($existing) {
             // Ensure template is set
-            update_post_meta( $existing->ID, '_wp_page_template', $template_file );
+            update_post_meta($existing->ID, '_wp_page_template', $template_file);
             continue;
         }
-        $id = wp_insert_post( [
+        $id = wp_insert_post([
             'post_title'  => $title,
             'post_name'   => $slug,
             'post_type'   => 'page',
             'post_status' => 'publish',
-        ] );
-        if ( ! is_wp_error( $id ) ) {
-            update_post_meta( $id, '_wp_page_template', $template_file );
+        ]);
+        if (! is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', $template_file);
         }
     }
 
     // Create ES service pages (under /es/ parent)
     $es_parent_id = $created['es'] ?? 0;
-    foreach ( $es_services as $slug => $title ) {
+    foreach ($es_services as $slug => $title) {
         $full_path = 'es/' . $slug;
-        $existing  = get_page_by_path( $full_path );
-        if ( $existing ) {
-            update_post_meta( $existing->ID, '_wp_page_template', $template_file );
+        $existing  = get_page_by_path($full_path);
+        if ($existing) {
+            update_post_meta($existing->ID, '_wp_page_template', $template_file);
             continue;
         }
-        $id = wp_insert_post( [
+        $id = wp_insert_post([
             'post_title'  => $title,
             'post_name'   => $slug,
             'post_parent' => $es_parent_id,
             'post_type'   => 'page',
             'post_status' => 'publish',
-        ] );
-        if ( ! is_wp_error( $id ) ) {
-            update_post_meta( $id, '_wp_page_template', $template_file );
+        ]);
+        if (! is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', $template_file);
         }
     }
 
@@ -1131,22 +1161,22 @@ function mjsk_auto_setup() {
     ];
 
     $fr_parent_id = $created['fr'] ?? 0;
-    foreach ( $fr_services as $slug => $title ) {
+    foreach ($fr_services as $slug => $title) {
         $full_path = 'fr/' . $slug;
-        $existing  = get_page_by_path( $full_path );
-        if ( $existing ) {
-            update_post_meta( $existing->ID, '_wp_page_template', $template_file );
+        $existing  = get_page_by_path($full_path);
+        if ($existing) {
+            update_post_meta($existing->ID, '_wp_page_template', $template_file);
             continue;
         }
-        $id = wp_insert_post( [
+        $id = wp_insert_post([
             'post_title'  => $title,
             'post_name'   => $slug,
             'post_parent' => $fr_parent_id,
             'post_type'   => 'page',
             'post_status' => 'publish',
-        ] );
-        if ( ! is_wp_error( $id ) ) {
-            update_post_meta( $id, '_wp_page_template', $template_file );
+        ]);
+        if (! is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', $template_file);
         }
     }
 
@@ -1176,83 +1206,86 @@ function mjsk_auto_setup() {
     ];
 
     $nl_parent_id = $created['nl'] ?? 0;
-    foreach ( $nl_services as $slug => $title ) {
+    foreach ($nl_services as $slug => $title) {
         $full_path = 'nl/' . $slug;
-        $existing  = get_page_by_path( $full_path );
-        if ( $existing ) {
-            update_post_meta( $existing->ID, '_wp_page_template', $template_file );
+        $existing  = get_page_by_path($full_path);
+        if ($existing) {
+            update_post_meta($existing->ID, '_wp_page_template', $template_file);
             continue;
         }
-        $id = wp_insert_post( [
+        $id = wp_insert_post([
             'post_title'  => $title,
             'post_name'   => $slug,
             'post_parent' => $nl_parent_id,
             'post_type'   => 'page',
             'post_status' => 'publish',
-        ] );
-        if ( ! is_wp_error( $id ) ) {
-            update_post_meta( $id, '_wp_page_template', $template_file );
+        ]);
+        if (! is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', $template_file);
         }
     }
 
-    update_option( 'mjsk_setup_done', 1 );
+    update_option('mjsk_setup_done', 1);
 }
-add_action( 'after_switch_theme', 'mjsk_auto_setup' );
-add_action( 'init', function() {
-    if ( ! get_option( 'mjsk_setup_done' ) ) mjsk_auto_setup();
-} );
+add_action('after_switch_theme', 'mjsk_auto_setup');
+add_action('init', function () {
+    if (! get_option('mjsk_setup_done')) mjsk_auto_setup();
+});
 
 /* ═══════════════════════════════════════════════════════════════
    15. FLUSH REWRITE RULES (once after setup)
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_maybe_flush() {
-    if ( get_option( 'mjsk_flush_done' ) ) return;
+function mjsk_maybe_flush()
+{
+    if (get_option('mjsk_flush_done')) return;
     flush_rewrite_rules();
-    update_option( 'mjsk_flush_done', 1 );
+    update_option('mjsk_flush_done', 1);
 }
-add_action( 'init', 'mjsk_maybe_flush', 99 );
+add_action('init', 'mjsk_maybe_flush', 99);
 
 /* ═══════════════════════════════════════════════════════════════
    16. CLEANUP <head>
    ═══════════════════════════════════════════════════════════════ */
 
-remove_action( 'wp_head', 'wp_generator' );
-remove_action( 'wp_head', 'wlwmanifest_link' );
-remove_action( 'wp_head', 'rsd_link' );
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'rsd_link');
 
 /* Remove WordPress emoji scripts & styles — saves ~15KB of render-blocking inline JS */
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
-remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles', 'print_emoji_styles' );
-add_filter( 'emoji_svg_url', '__return_false' );
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+remove_action('admin_print_scripts', 'print_emoji_detection_script');
+remove_action('admin_print_styles', 'print_emoji_styles');
+add_filter('emoji_svg_url', '__return_false');
 
 /* Remove WordPress block library CSS (not using Gutenberg blocks on frontend) */
-function mjsk_remove_wp_block_css() {
-    wp_dequeue_style( 'wp-block-library' );
-    wp_dequeue_style( 'wp-block-library-theme' );
-    wp_dequeue_style( 'wc-blocks-style' );
-    wp_dequeue_style( 'global-styles' );
-    wp_dequeue_style( 'classic-theme-styles' );
+function mjsk_remove_wp_block_css()
+{
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('wc-blocks-style');
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('classic-theme-styles');
 }
-add_action( 'wp_enqueue_scripts', 'mjsk_remove_wp_block_css', 100 );
+add_action('wp_enqueue_scripts', 'mjsk_remove_wp_block_css', 100);
 
 /* Remove global styles inline CSS */
-remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
-remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
 
 /**
  * Security headers — improves Lighthouse Best Practices score.
  */
-function mjsk_security_headers() {
-    if ( is_admin() ) return;
-    header( 'X-Content-Type-Options: nosniff' );
-    header( 'X-Frame-Options: SAMEORIGIN' );
-    header( 'Referrer-Policy: strict-origin-when-cross-origin' );
-    header( 'Permissions-Policy: geolocation=(), microphone=(), camera=()' );
+function mjsk_security_headers()
+{
+    if (is_admin()) return;
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
 }
-add_action( 'send_headers', 'mjsk_security_headers' );
+add_action('send_headers', 'mjsk_security_headers');
 
 /* ═══════════════════════════════════════════════════════════════
    16b. WOOCOMMERCE INTEGRATION
@@ -1261,34 +1294,207 @@ add_action( 'send_headers', 'mjsk_security_headers' );
 /**
  * WooCommerce content wrappers — match our theme's markup.
  */
-function mjsk_wc_wrapper_start() {
+function mjsk_wc_wrapper_start()
+{
     echo '<main id="main-content"><div class="container" style="padding-top:120px;padding-bottom:60px;">';
 }
-function mjsk_wc_wrapper_end() {
+function mjsk_wc_wrapper_end()
+{
     echo '</div></main>';
 }
 
-if ( class_exists( 'WooCommerce' ) ) {
-    remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
-    remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
-    add_action( 'woocommerce_before_main_content', 'mjsk_wc_wrapper_start', 10 );
-    add_action( 'woocommerce_after_main_content', 'mjsk_wc_wrapper_end', 10 );
+if (class_exists('WooCommerce')) {
+    remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+    remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+    add_action('woocommerce_before_main_content', 'mjsk_wc_wrapper_start', 10);
+    add_action('woocommerce_after_main_content', 'mjsk_wc_wrapper_end', 10);
 
     // Disable WooCommerce default styles (we use our own)
-    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+    add_filter('woocommerce_enqueue_styles', '__return_empty_array');
 
     // Add our WooCommerce CSS
-    add_action( 'wp_enqueue_scripts', function() {
-        if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) {
+    add_action('wp_enqueue_scripts', function () {
+        if (is_woocommerce() || is_cart() || is_checkout() || is_account_page()) {
             wp_enqueue_style(
                 'mjsk-woocommerce',
                 get_template_directory_uri() . '/assets/css/woocommerce.css',
-                [ 'mjsk-main' ],
-                filemtime( get_template_directory() . '/assets/css/woocommerce.css' )
+                ['mjsk-main'],
+                filemtime(get_template_directory() . '/assets/css/woocommerce.css')
             );
         }
-    } );
+    });
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   16b-2. BOOKING → WOOCOMMERCE ORDER (AJAX)
+   ═══════════════════════════════════════════════════════════════ */
+
+add_action('wp_ajax_mjsk_create_booking_order', 'mjsk_create_booking_order');
+add_action('wp_ajax_nopriv_mjsk_create_booking_order', 'mjsk_create_booking_order');
+
+function mjsk_create_booking_order()
+{
+    check_ajax_referer('mjsk_booking_nonce', 'nonce');
+
+    if (! class_exists('WooCommerce')) {
+        wp_send_json_error(['message' => 'WooCommerce is not active.']);
+    }
+
+    $ref         = sanitize_text_field($_POST['ref'] ?? '');
+    $pay_amount  = floatval($_POST['pay_amount'] ?? 0);
+    $total       = floatval($_POST['total_amount'] ?? 0);
+    $is_deposit  = ! empty($_POST['is_deposit']);
+    $first_name  = sanitize_text_field($_POST['first_name'] ?? '');
+    $last_name   = sanitize_text_field($_POST['last_name'] ?? '');
+    $email       = sanitize_email($_POST['email'] ?? '');
+    $phone       = sanitize_text_field($_POST['phone'] ?? '');
+    $date        = sanitize_text_field($_POST['date'] ?? '');
+    $time        = sanitize_text_field($_POST['time'] ?? '');
+    $activities  = sanitize_text_field($_POST['activities_summary'] ?? '');
+
+    if ($pay_amount <= 0) {
+        wp_send_json_error(['message' => 'Invalid payment amount.']);
+    }
+
+    $order = wc_create_order();
+
+    $label = $is_deposit
+        ? sprintf('Booking Deposit 20%% — %s', $ref)
+        : sprintf('Booking — %s', $ref);
+
+    $fee = new WC_Order_Item_Fee();
+    $fee->set_name($label);
+    $fee->set_amount($pay_amount);
+    $fee->set_total($pay_amount);
+    $fee->set_tax_status('none');
+    $order->add_item($fee);
+
+    $order->set_billing_first_name($first_name);
+    $order->set_billing_last_name($last_name);
+    $order->set_billing_email($email);
+    $order->set_billing_phone($phone);
+    $order->set_total($pay_amount);
+
+    $order->update_meta_data('_mjsk_ref', $ref);
+    $order->update_meta_data('_mjsk_date', $date);
+    $order->update_meta_data('_mjsk_time', $time);
+    $order->update_meta_data('_mjsk_full_total', $total);
+    $order->update_meta_data('_mjsk_deposit', $is_deposit ? 'yes' : 'no');
+    $order->update_meta_data('_mjsk_activities', $activities);
+
+    $note  = "Booking Ref: {$ref}\n";
+    $note .= "Date: {$date} at {$time}\n";
+    $note .= "Activities: {$activities}\n";
+    $note .= "Full total: €{$total}\n";
+    if ($is_deposit) {
+        $balance = $total - $pay_amount;
+        $note .= "Deposit charged: €{$pay_amount}\n";
+        $note .= "Balance (to boat owner): €{$balance}";
+    }
+    $order->add_order_note($note);
+
+    $order->save();
+
+    // ── Send booking notification email ──────────────────────────
+    $to      = 'jetskimarbella@gmail.com';
+    $subject = "🚤 New Booking — {$ref}";
+
+    $body  = "New booking received!\n\n";
+    $body .= "Booking Ref: {$ref}\n";
+    $body .= "Date: {$date} at {$time}\n\n";
+    $body .= "Customer:\n";
+    $body .= "  Name: {$first_name} {$last_name}\n";
+    $body .= "  Email: {$email}\n";
+    $body .= "  Phone: {$phone}\n\n";
+    $body .= "Activities:{$activities}\n\n";
+    $body .= "Full total: €{$total}\n";
+    $body .= "Payment now: €{$pay_amount}";
+    if ($is_deposit) {
+        $balance = $total - $pay_amount;
+        $body .= " (20% deposit)\n";
+        $body .= "Balance (to boat owner): €{$balance}";
+    }
+    $body .= "\n\nOrder #{$order->get_id()} — " . $order->get_edit_order_url();
+
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+    if ($email) {
+        $headers[] = "Reply-To: {$first_name} {$last_name} <{$email}>";
+    }
+
+    wp_mail($to, $subject, $body, $headers);
+
+    wp_send_json_success([
+        'pay_url'  => $order->get_checkout_payment_url(),
+        'order_id' => $order->get_id(),
+    ]);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   16b-2. WHATSAPP REDIRECT AFTER PAYMENT (THANK YOU PAGE)
+   ═══════════════════════════════════════════════════════════════ */
+add_action('woocommerce_thankyou', 'mjsk_thankyou_whatsapp_redirect');
+
+function mjsk_thankyou_whatsapp_redirect($order_id)
+{
+    if (! $order_id) return;
+
+    $order = wc_get_order($order_id);
+    if (! $order) return;
+
+    $ref = $order->get_meta('_mjsk_ref');
+    if (! $ref) return;
+
+    $date       = $order->get_meta('_mjsk_date');
+    $time       = $order->get_meta('_mjsk_time');
+    $total      = $order->get_meta('_mjsk_full_total');
+    $is_deposit = $order->get_meta('_mjsk_deposit') === 'yes';
+    $activities = $order->get_meta('_mjsk_activities');
+    $pay_amount = $order->get_total();
+    $first_name = $order->get_billing_first_name();
+    $last_name  = $order->get_billing_last_name();
+    $email      = $order->get_billing_email();
+    $phone      = $order->get_billing_phone();
+
+    $msg  = "🚤 BOOKING CONFIRMED (PAID)\n";
+    $msg .= "Ref: {$ref}\n\n";
+    $msg .= "Activities:{$activities}\n\n";
+    $msg .= "Date: {$date}\nTime: {$time}\n\n";
+    $msg .= "Name: {$first_name} {$last_name}\n";
+    $msg .= "Email: {$email}\nPhone: {$phone}\n\n";
+    $msg .= "Paid: €{$pay_amount}";
+    if ($is_deposit) {
+        $balance = floatval($total) - floatval($pay_amount);
+        $msg .= " (20% deposit)\n";
+        $msg .= "Balance (to boat owner): €{$balance}";
+    } else {
+        $msg .= " (full payment)";
+    }
+    $msg .= "\nFull total: €{$total}";
+
+    $wa_url = 'https://api.whatsapp.com/send?phone=34655442232&text=' . rawurlencode($msg);
+?>
+    <script>
+        (function() {
+            var waUrl = <?php echo json_encode($wa_url); ?>;
+            setTimeout(function() {
+                window.open(waUrl, '_blank');
+            }, 2000);
+            var btn = document.createElement('a');
+            btn.href = waUrl;
+            btn.target = '_blank';
+            btn.rel = 'noopener noreferrer';
+            btn.style.cssText = 'display:inline-flex;align-items:center;gap:10px;background:#25D366;color:white;padding:14px 28px;border-radius:50px;font-weight:700;text-decoration:none;font-size:1rem;margin:20px 0;';
+            btn.innerHTML = '<i class="fab fa-whatsapp" style="font-size:1.3em"></i> Send Booking via WhatsApp';
+            var container = document.querySelector('.woocommerce-order');
+            if (container) container.appendChild(btn);
+        })();
+    </script>
+<?php
+}
+
+
 
 /* ═══════════════════════════════════════════════════════════════
    16c. SERVICE LANDING PAGE DETECTION
@@ -1297,13 +1503,14 @@ if ( class_exists( 'WooCommerce' ) ) {
 /**
  * Check if current page uses the service landing page template.
  */
-function mjsk_is_service_page() {
-    $slug = get_post_field( 'post_name', get_the_ID() );
+function mjsk_is_service_page()
+{
+    $slug = get_post_field('post_name', get_the_ID());
     $lang  = mjsk_get_lang();
-    $prefix = ( $lang !== 'en' ) ? $lang . '-' : '';
+    $prefix = ($lang !== 'en') ? $lang . '-' : '';
     $file   = $prefix . 'service-' . $slug . '.html';
     $path   = get_template_directory() . '/page-content/' . $file;
-    return file_exists( $path );
+    return file_exists($path);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1313,19 +1520,21 @@ function mjsk_is_service_page() {
 /**
  * Estimated reading time for blog posts.
  */
-function mjsk_reading_time() {
-    $content = get_post_field( 'post_content', get_the_ID() );
-    $words   = str_word_count( strip_tags( $content ) );
-    $minutes = max( 1, ceil( $words / 200 ) );
+function mjsk_reading_time()
+{
+    $content = get_post_field('post_content', get_the_ID());
+    $words   = str_word_count(strip_tags($content));
+    $minutes = max(1, ceil($words / 200));
     $lang    = mjsk_get_lang();
-    return $minutes . ' min ' . ( $lang === 'es' ? 'de lectura' : 'read' );
+    return $minutes . ' min ' . ($lang === 'es' ? 'de lectura' : 'read');
 }
 
 /**
  * Register blog sidebar widget area.
  */
-function mjsk_register_sidebars() {
-    register_sidebar( [
+function mjsk_register_sidebars()
+{
+    register_sidebar([
         'name'          => 'Blog Sidebar',
         'id'            => 'blog-sidebar',
         'description'   => 'Widgets shown on blog archive and single post pages.',
@@ -1333,33 +1542,37 @@ function mjsk_register_sidebars() {
         'after_widget'  => '</div>',
         'before_title'  => '<h3>',
         'after_title'   => '</h3>',
-    ] );
+    ]);
 }
-add_action( 'widgets_init', 'mjsk_register_sidebars' );
+add_action('widgets_init', 'mjsk_register_sidebars');
 
 /**
  * Enqueue blog CSS on blog pages.
  */
-function mjsk_blog_assets() {
-    if ( is_single() || is_archive() || is_search() || is_home()
-         || is_page_template( 'page-blog.php' ) ) {
+function mjsk_blog_assets()
+{
+    if (
+        is_single() || is_archive() || is_search() || is_home()
+        || is_page_template('page-blog.php')
+    ) {
         wp_enqueue_style(
             'mjsk-blog',
             get_template_directory_uri() . '/assets/css/blog.css',
-            [ 'mjsk-main' ],
-            filemtime( get_template_directory() . '/assets/css/blog.css' )
+            ['mjsk-main'],
+            filemtime(get_template_directory() . '/assets/css/blog.css')
         );
     }
 }
-add_action( 'wp_enqueue_scripts', 'mjsk_blog_assets' );
+add_action('wp_enqueue_scripts', 'mjsk_blog_assets');
 
 /* ═══════════════════════════════════════════════════════════════
    17. HREFLANG TAGS
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_hreflang_tags() {
+function mjsk_hreflang_tags()
+{
     // Skip if Polylang is active — it handles hreflang
-    if ( function_exists( 'pll_the_languages' ) ) {
+    if (function_exists('pll_the_languages')) {
         return;
     }
 
@@ -1371,81 +1584,83 @@ function mjsk_hreflang_tags() {
     ];
 
     echo "\n";
-    foreach ( $langs as $code => $hreflang ) {
-        $url = mjsk_get_page_in_lang( $code );
-        echo '<link rel="alternate" hreflang="' . esc_attr( $hreflang ) . '" href="' . esc_url( $url ) . '" />' . "\n";
+    foreach ($langs as $code => $hreflang) {
+        $url = mjsk_get_page_in_lang($code);
+        echo '<link rel="alternate" hreflang="' . esc_attr($hreflang) . '" href="' . esc_url($url) . '" />' . "\n";
     }
     // x-default → English
-    $en_url = mjsk_get_page_in_lang( 'en' );
-    echo '<link rel="alternate" hreflang="x-default" href="' . esc_url( $en_url ) . '" />' . "\n";
+    $en_url = mjsk_get_page_in_lang('en');
+    echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($en_url) . '" />' . "\n";
 }
-add_action( 'wp_head', 'mjsk_hreflang_tags', 1 );
+add_action('wp_head', 'mjsk_hreflang_tags', 1);
 
 /* ═══════════════════════════════════════════════════════════════
    17b. META DESCRIPTION TAG (SEO)
    ═══════════════════════════════════════════════════════════════ */
 
-function mjsk_meta_description() {
+function mjsk_meta_description()
+{
     // Skip if an SEO plugin handles this
-    if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) || defined( 'AIOSEO_VERSION' ) ) {
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('AIOSEO_VERSION')) {
         return;
     }
 
     $lang = mjsk_get_lang();
     $desc = '';
 
-    if ( is_front_page() || mjsk_is_homepage() ) {
+    if (is_front_page() || mjsk_is_homepage()) {
         $descriptions = [
             'en' => 'Jet ski tours, water activities, boat hire and yacht charters in Marbella, Costa del Sol. Book your adventure online — best prices guaranteed.',
             'es' => 'Excursiones en moto de agua, actividades acuáticas, alquiler de barcos y yates en Marbella, Costa del Sol. Reserva tu aventura online.',
             'fr' => 'Excursions en jet ski, activités nautiques, location de bateaux et yachts à Marbella, Costa del Sol. Réservez votre aventure en ligne.',
             'nl' => 'Jetski-tochten, wateractiviteiten, bootje huren en jachtverhuur in Marbella, Costa del Sol. Boek je avontuur online.',
         ];
-        $desc = $descriptions[ $lang ] ?? $descriptions['en'];
-    } elseif ( is_archive() || is_home() ) {
+        $desc = $descriptions[$lang] ?? $descriptions['en'];
+    } elseif (is_archive() || is_home()) {
         $descriptions_blog = [
             'en' => 'Tips, guides and news about jet skiing, water sports and boating in Marbella and the Costa del Sol.',
             'es' => 'Consejos, guías y noticias sobre motos de agua, deportes acuáticos y navegación en Marbella y la Costa del Sol.',
             'fr' => 'Conseils, guides et actualités sur le jet ski, les sports nautiques et la navigation à Marbella et sur la Costa del Sol.',
             'nl' => 'Tips, gidsen en nieuws over jetskiën, watersporten en varen in Marbella en aan de Costa del Sol.',
         ];
-        $desc = $descriptions_blog[ $lang ] ?? $descriptions_blog['en'];
-    } elseif ( is_singular() ) {
+        $desc = $descriptions_blog[$lang] ?? $descriptions_blog['en'];
+    } elseif (is_singular()) {
         $post = get_queried_object();
         // Try excerpt or content first
-        if ( $post && ! empty( $post->post_excerpt ) ) {
-            $desc = wp_strip_all_tags( $post->post_excerpt );
-        } elseif ( $post && ! empty( $post->post_content ) ) {
-            $desc = wp_trim_words( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ), 25, '…' );
+        if ($post && ! empty($post->post_excerpt)) {
+            $desc = wp_strip_all_tags($post->post_excerpt);
+        } elseif ($post && ! empty($post->post_content)) {
+            $desc = wp_trim_words(wp_strip_all_tags(strip_shortcodes($post->post_content)), 25, '…');
         }
 
         // Fallback: generate description from page slug + language for template-based pages
-        if ( empty( $desc ) && $post ) {
-            $desc = mjsk_slug_description( $post->post_name, $lang );
+        if (empty($desc) && $post) {
+            $desc = mjsk_slug_description($post->post_name, $lang);
         }
     }
 
     // Ultimate fallback for any page
-    if ( empty( $desc ) ) {
+    if (empty($desc)) {
         $fallbacks = [
             'en' => 'Marbella JetSki — jet ski tours, water sports, boat hire and yacht charters on the Costa del Sol, Spain.',
             'es' => 'Marbella JetSki — excursiones en moto de agua, deportes acuáticos, alquiler de barcos y yates en la Costa del Sol.',
             'fr' => 'Marbella JetSki — excursions en jet ski, sports nautiques, location de bateaux et yachts sur la Costa del Sol.',
             'nl' => 'Marbella JetSki — jetski-tochten, watersporten, bootverhuur en jachtverhuur aan de Costa del Sol.',
         ];
-        $desc = $fallbacks[ $lang ] ?? $fallbacks['en'];
+        $desc = $fallbacks[$lang] ?? $fallbacks['en'];
     }
 
-    $desc = mb_substr( $desc, 0, 160 );
-    echo '<meta name="description" content="' . esc_attr( $desc ) . '" />' . "\n";
+    $desc = mb_substr($desc, 0, 160);
+    echo '<meta name="description" content="' . esc_attr($desc) . '" />' . "\n";
 }
-add_action( 'wp_head', 'mjsk_meta_description', 2 );
+add_action('wp_head', 'mjsk_meta_description', 2);
 
 /**
  * Generate a meta description based on page slug and language.
  * Covers all template-based pages that have no WP post_content.
  */
-function mjsk_slug_description( $slug, $lang ) {
+function mjsk_slug_description($slug, $lang)
+{
     // Slug → description keyword mapping (patterns checked via strpos/match)
     $map = [
         // Booking
@@ -1711,16 +1926,18 @@ function mjsk_slug_description( $slug, $lang ) {
     ];
 
     // Exact match first
-    if ( isset( $map[ $slug ] ) ) {
-        return $map[ $slug ][ $lang ] ?? $map[ $slug ]['en'];
+    if (isset($map[$slug])) {
+        return $map[$slug][$lang] ?? $map[$slug]['en'];
     }
 
     // Partial match (longer keys first for specificity)
-    $keys = array_keys( $map );
-    usort( $keys, function( $a, $b ) { return strlen( $b ) - strlen( $a ); } );
-    foreach ( $keys as $key ) {
-        if ( strpos( $slug, $key ) !== false ) {
-            return $map[ $key ][ $lang ] ?? $map[ $key ]['en'];
+    $keys = array_keys($map);
+    usort($keys, function ($a, $b) {
+        return strlen($b) - strlen($a);
+    });
+    foreach ($keys as $key) {
+        if (strpos($slug, $key) !== false) {
+            return $map[$key][$lang] ?? $map[$key]['en'];
         }
     }
 
@@ -1735,7 +1952,8 @@ function mjsk_slug_description( $slug, $lang ) {
  * Add a "Site Repair" page under Appearance menu.
  * Non-coders can fix common issues with one click.
  */
-function mjsk_admin_menu() {
+function mjsk_admin_menu()
+{
     add_theme_page(
         'MJS Site Repair',
         '🔧 MJS Repair Tool',
@@ -1744,38 +1962,39 @@ function mjsk_admin_menu() {
         'mjsk_repair_page'
     );
 }
-add_action( 'admin_menu', 'mjsk_admin_menu' );
+add_action('admin_menu', 'mjsk_admin_menu');
 
-function mjsk_repair_page() {
+function mjsk_repair_page()
+{
     // Handle form actions
     $message = '';
     $message_type = '';
 
-    if ( isset( $_POST['mjsk_action'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'mjsk_repair' ) ) {
-        $action = sanitize_text_field( $_POST['mjsk_action'] );
+    if (isset($_POST['mjsk_action']) && wp_verify_nonce($_POST['_wpnonce'], 'mjsk_repair')) {
+        $action = sanitize_text_field($_POST['mjsk_action']);
 
-        switch ( $action ) {
+        switch ($action) {
             case 'recreate_pages':
-                delete_option( 'mjsk_setup_done' );
+                delete_option('mjsk_setup_done');
                 mjsk_auto_setup();
                 $message = '✅ All 24 pages have been recreated. Missing pages were restored.';
                 $message_type = 'success';
                 break;
 
             case 'fix_permalinks':
-                update_option( 'permalink_structure', '/%postname%/' );
-                delete_option( 'mjsk_flush_done' );
+                update_option('permalink_structure', '/%postname%/');
+                delete_option('mjsk_flush_done');
                 flush_rewrite_rules();
-                update_option( 'mjsk_flush_done', 1 );
+                update_option('mjsk_flush_done', 1);
                 $message = '✅ Permalinks fixed. Pretty URLs (like /booking/) should work now.';
                 $message_type = 'success';
                 break;
 
             case 'fix_homepage':
-                $home_page = get_page_by_path( 'home' );
-                if ( $home_page ) {
-                    update_option( 'show_on_front', 'page' );
-                    update_option( 'page_on_front', $home_page->ID );
+                $home_page = get_page_by_path('home');
+                if ($home_page) {
+                    update_option('show_on_front', 'page');
+                    update_option('page_on_front', $home_page->ID);
                     $message = '✅ Homepage has been set to the "Home" page.';
                 } else {
                     $message = '⚠️ "Home" page not found. Click "Recreate All Pages" first.';
@@ -1785,15 +2004,15 @@ function mjsk_repair_page() {
                 break;
 
             case 'full_reset':
-                delete_option( 'mjsk_setup_done' );
-                delete_option( 'mjsk_flush_done' );
+                delete_option('mjsk_setup_done');
+                delete_option('mjsk_flush_done');
                 mjsk_auto_setup();
                 flush_rewrite_rules();
-                update_option( 'mjsk_flush_done', 1 );
-                $home_page = get_page_by_path( 'home' );
-                if ( $home_page ) {
-                    update_option( 'show_on_front', 'page' );
-                    update_option( 'page_on_front', $home_page->ID );
+                update_option('mjsk_flush_done', 1);
+                $home_page = get_page_by_path('home');
+                if ($home_page) {
+                    update_option('show_on_front', 'page');
+                    update_option('page_on_front', $home_page->ID);
                 }
                 $message = '✅ Full reset complete. Pages recreated, permalinks fixed, homepage set.';
                 $message_type = 'success';
@@ -1804,12 +2023,12 @@ function mjsk_repair_page() {
     // Diagnostic checks
     $diagnostics = mjsk_run_diagnostics();
 
-    ?>
+?>
     <div class="wrap">
         <h1>🔧 Marbella JetSki — Site Repair Tool</h1>
         <p style="font-size:14px;color:#666;">If something looks broken on the site, use these buttons to fix it. No coding needed.</p>
 
-        <?php if ( $message ) : ?>
+        <?php if ($message) : ?>
             <div class="notice notice-<?php echo esc_attr($message_type); ?> is-dismissible">
                 <p style="font-size:14px;"><?php echo wp_kses_post($message); ?></p>
             </div>
@@ -1820,7 +2039,7 @@ function mjsk_repair_page() {
             <h2 style="margin-top:0;">📋 Site Health Check</h2>
             <table class="widefat striped" style="max-width:650px;">
                 <tbody>
-                    <?php foreach ( $diagnostics as $check ) : ?>
+                    <?php foreach ($diagnostics as $check) : ?>
                         <tr>
                             <td style="width:30px;font-size:18px;"><?php echo $check['icon']; ?></td>
                             <td><strong><?php echo esc_html($check['label']); ?></strong></td>
@@ -1842,7 +2061,7 @@ function mjsk_repair_page() {
                     <h3 style="margin:0 0 5px;">Recreate All Pages</h3>
                     <p style="color:#666;margin:0 0 10px;">Use if: Pages are missing, deleted, or showing 404 errors.</p>
                     <form method="post">
-                        <?php wp_nonce_field( 'mjsk_repair' ); ?>
+                        <?php wp_nonce_field('mjsk_repair'); ?>
                         <input type="hidden" name="mjsk_action" value="recreate_pages">
                         <button type="submit" class="button button-primary">Recreate 24 Pages</button>
                     </form>
@@ -1853,7 +2072,7 @@ function mjsk_repair_page() {
                     <h3 style="margin:0 0 5px;">Fix Permalinks (404 Errors)</h3>
                     <p style="color:#666;margin:0 0 10px;">Use if: Pages exist but show "Page Not Found" when you visit them.</p>
                     <form method="post">
-                        <?php wp_nonce_field( 'mjsk_repair' ); ?>
+                        <?php wp_nonce_field('mjsk_repair'); ?>
                         <input type="hidden" name="mjsk_action" value="fix_permalinks">
                         <button type="submit" class="button button-primary">Fix Permalinks</button>
                     </form>
@@ -1864,7 +2083,7 @@ function mjsk_repair_page() {
                     <h3 style="margin:0 0 5px;">Fix Homepage</h3>
                     <p style="color:#666;margin:0 0 10px;">Use if: The homepage shows a blog/posts list instead of the real homepage.</p>
                     <form method="post">
-                        <?php wp_nonce_field( 'mjsk_repair' ); ?>
+                        <?php wp_nonce_field('mjsk_repair'); ?>
                         <input type="hidden" name="mjsk_action" value="fix_homepage">
                         <button type="submit" class="button button-primary">Set Homepage</button>
                     </form>
@@ -1875,7 +2094,7 @@ function mjsk_repair_page() {
                     <h3 style="margin:0 0 5px;">⭐ Full Reset (Fixes Everything)</h3>
                     <p style="color:#666;margin:0 0 10px;">Use if: Nothing else worked, or you just want to make sure everything is correct. This recreates all pages, fixes permalinks, and sets the homepage. <strong>Safe to run — won't delete anything.</strong></p>
                     <form method="post">
-                        <?php wp_nonce_field( 'mjsk_repair' ); ?>
+                        <?php wp_nonce_field('mjsk_repair'); ?>
                         <input type="hidden" name="mjsk_action" value="full_reset">
                         <button type="submit" class="button button-primary" style="background:#0073aa;font-size:14px;padding:5px 20px;">🔄 Full Reset</button>
                     </form>
@@ -1896,56 +2115,64 @@ function mjsk_repair_page() {
             </ol>
         </div>
     </div>
-    <?php
+<?php
 }
 
 /**
  * Run diagnostic checks and return results.
  */
-function mjsk_run_diagnostics() {
+function mjsk_run_diagnostics()
+{
     $checks = [];
 
     // Check 1: Are all 24 pages present?
     $expected_pages = [
-        'home', 'booking', 'terms', 'weather-policy', 'about-us', 'lessons',
-        'es', 'fr', 'nl',
+        'home',
+        'booking',
+        'terms',
+        'weather-policy',
+        'about-us',
+        'lessons',
+        'es',
+        'fr',
+        'nl',
     ];
     $lang_subpages = [
-        'es' => ['booking','terms','weather-policy','about-us','lessons'],
-        'fr' => ['booking','terms','weather-policy','about-us','lessons'],
-        'nl' => ['booking','terms','weather-policy','about-us','lessons'],
+        'es' => ['booking', 'terms', 'weather-policy', 'about-us', 'lessons'],
+        'fr' => ['booking', 'terms', 'weather-policy', 'about-us', 'lessons'],
+        'nl' => ['booking', 'terms', 'weather-policy', 'about-us', 'lessons'],
     ];
 
     $missing = [];
-    foreach ( $expected_pages as $slug ) {
-        if ( ! get_page_by_path( $slug ) ) $missing[] = '/' . $slug . '/';
+    foreach ($expected_pages as $slug) {
+        if (! get_page_by_path($slug)) $missing[] = '/' . $slug . '/';
     }
-    foreach ( $lang_subpages as $lang => $subs ) {
-        foreach ( $subs as $sub ) {
-            if ( ! get_page_by_path( $lang . '/' . $sub ) ) $missing[] = '/' . $lang . '/' . $sub . '/';
+    foreach ($lang_subpages as $lang => $subs) {
+        foreach ($subs as $sub) {
+            if (! get_page_by_path($lang . '/' . $sub)) $missing[] = '/' . $lang . '/' . $sub . '/';
         }
     }
 
     $page_count = 24 - count($missing);
-    if ( count($missing) === 0 ) {
+    if (count($missing) === 0) {
         $checks[] = ['icon' => '✅', 'label' => 'Pages (24 total)', 'status' => 'All 24 pages present'];
     } else {
         $checks[] = ['icon' => '❌', 'label' => 'Pages', 'status' => $page_count . '/24 found. Missing: ' . implode(', ', array_slice($missing, 0, 5)) . (count($missing) > 5 ? '...' : '') . ' — <em>Click "Recreate All Pages" to fix</em>'];
     }
 
     // Check 2: Permalink structure
-    $permalink = get_option( 'permalink_structure' );
-    if ( $permalink === '/%postname%/' ) {
+    $permalink = get_option('permalink_structure');
+    if ($permalink === '/%postname%/') {
         $checks[] = ['icon' => '✅', 'label' => 'Permalinks', 'status' => 'Correct (/%postname%/)'];
     } else {
         $checks[] = ['icon' => '❌', 'label' => 'Permalinks', 'status' => 'Wrong: "' . esc_html($permalink) . '" — <em>Click "Fix Permalinks"</em>'];
     }
 
     // Check 3: Homepage setting
-    $show_on_front = get_option( 'show_on_front' );
-    $front_page_id = get_option( 'page_on_front' );
-    $home_page = get_page_by_path( 'home' );
-    if ( $show_on_front === 'page' && $home_page && intval($front_page_id) === $home_page->ID ) {
+    $show_on_front = get_option('show_on_front');
+    $front_page_id = get_option('page_on_front');
+    $home_page = get_page_by_path('home');
+    if ($show_on_front === 'page' && $home_page && intval($front_page_id) === $home_page->ID) {
         $checks[] = ['icon' => '✅', 'label' => 'Homepage', 'status' => 'Set to "Home" page'];
     } else {
         $checks[] = ['icon' => '❌', 'label' => 'Homepage', 'status' => 'Not set correctly — <em>Click "Fix Homepage"</em>'];
@@ -1954,22 +2181,22 @@ function mjsk_run_diagnostics() {
     // Check 4: Theme files integrity
     $required_files = ['functions.php', 'header.php', 'footer.php', 'front-page.php', 'page.php', 'style.css', 'assets/css/main.css', 'assets/js/script.js'];
     $missing_files = [];
-    foreach ( $required_files as $f ) {
-        if ( ! file_exists( get_template_directory() . '/' . $f ) ) $missing_files[] = $f;
+    foreach ($required_files as $f) {
+        if (! file_exists(get_template_directory() . '/' . $f)) $missing_files[] = $f;
     }
-    if ( empty($missing_files) ) {
+    if (empty($missing_files)) {
         $checks[] = ['icon' => '✅', 'label' => 'Theme Files', 'status' => 'All core files present'];
     } else {
         $checks[] = ['icon' => '❌', 'label' => 'Theme Files', 'status' => 'Missing: ' . implode(', ', $missing_files) . ' — <em>Re-upload the theme</em>'];
     }
 
     // Check 5: Content files
-    $content_files = ['home.html','booking.html','es-home.html','es-booking.html','fr-home.html','fr-booking.html','nl-home.html','nl-booking.html'];
+    $content_files = ['home.html', 'booking.html', 'es-home.html', 'es-booking.html', 'fr-home.html', 'fr-booking.html', 'nl-home.html', 'nl-booking.html'];
     $missing_content = [];
-    foreach ( $content_files as $cf ) {
-        if ( ! file_exists( get_template_directory() . '/page-content/' . $cf ) ) $missing_content[] = $cf;
+    foreach ($content_files as $cf) {
+        if (! file_exists(get_template_directory() . '/page-content/' . $cf)) $missing_content[] = $cf;
     }
-    if ( empty($missing_content) ) {
+    if (empty($missing_content)) {
         $checks[] = ['icon' => '✅', 'label' => 'Content Files', 'status' => 'All content files present'];
     } else {
         $checks[] = ['icon' => '❌', 'label' => 'Content Files', 'status' => 'Missing: ' . implode(', ', $missing_content) . ' — <em>Re-upload the theme</em>'];
@@ -1977,7 +2204,7 @@ function mjsk_run_diagnostics() {
 
     // Check 6: PHP version
     $php_version = phpversion();
-    if ( version_compare( $php_version, '7.4', '>=' ) ) {
+    if (version_compare($php_version, '7.4', '>=')) {
         $checks[] = ['icon' => '✅', 'label' => 'PHP Version', 'status' => $php_version];
     } else {
         $checks[] = ['icon' => '⚠️', 'label' => 'PHP Version', 'status' => $php_version . ' (7.4+ recommended) — <em>Contact your hosting provider</em>'];
@@ -1985,7 +2212,7 @@ function mjsk_run_diagnostics() {
 
     // Check 7: WordPress version
     global $wp_version;
-    if ( version_compare( $wp_version, '6.0', '>=' ) ) {
+    if (version_compare($wp_version, '6.0', '>=')) {
         $checks[] = ['icon' => '✅', 'label' => 'WordPress', 'status' => $wp_version];
     } else {
         $checks[] = ['icon' => '⚠️', 'label' => 'WordPress', 'status' => $wp_version . ' (6.0+ recommended) — <em>Update WordPress</em>'];
@@ -1993,4 +2220,3 @@ function mjsk_run_diagnostics() {
 
     return $checks;
 }
-

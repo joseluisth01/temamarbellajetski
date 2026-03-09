@@ -933,7 +933,7 @@
                                 <input type="checkbox" name="activity" value="banana" data-price="20" data-name="Banana Boat" data-duration="15 min" data-per="person" data-type="towable">
                                 <div>
                                     <div class="name">Banana Boat</div>
-                                    <div class="duration">10 min · 20€/personne · Min. 2 personnes</div>
+                                    <div class="duration">15 min · 20€/personne · Min. 2 personnes</div>
                                 </div>
                                 <span class="capacity"><i class="fas fa-users"></i> 2-8</span>
                                 <span class="price">€20<small>/pp</small></span>
@@ -1562,6 +1562,11 @@
     <!-- Footer is provided by WordPress footer.php -->
 
         <script>
+
+
+            /* ========== WooCommerce Payment Integration ========== */
+var MJSK_AJAX = '<?php echo admin_url("admin-ajax.php"); ?>';
+var MJSK_NONCE = '<?php echo wp_create_nonce("mjsk_booking_nonce"); ?>';
     /* ========== Multi-Activity Booking System ========== */
     let currentStep = 1;
     let selectedActivities = {}; // value -> { name, duration, price, per, type, qty, guests }
@@ -2222,13 +2227,46 @@
             (isBoat ? '\n' + T.msgBalance + ': \u20ac' + (totalPrice - payAmount) + ' (' + T.msgBoatOwner + ')' : '') +
             '\n\n' + T.msgSentFrom;
 
-        currentStep = 5;
-        document.querySelectorAll('.step').forEach(function(s) { s.classList.add('completed'); });
-        document.querySelectorAll('.step-panel').forEach(function(p) { p.classList.remove('active'); });
-        document.getElementById('step5').classList.add('active');
-        document.getElementById('orderSummary').style.display = 'none';
-        window.scrollTo({ top: 200, behavior: 'smooth' });
-        setTimeout(function() { window.open('https://api.whatsapp.com/send?phone=34655442232&text=' + encodeURIComponent(msg), '_blank'); }, 1500);
+        /* Create WooCommerce order and redirect to payment */
+        var confirmBtn = document.getElementById('confirmPayBtn');
+        var origBtnText = document.getElementById('confirmPayText').textContent;
+        confirmBtn.disabled = true;
+        document.getElementById('confirmPayIcon').className = 'fas fa-spinner fa-spin';
+        document.getElementById('confirmPayText').textContent = 'Processing...';
+
+        var formData = new FormData();
+        formData.append('action', 'mjsk_create_booking_order');
+        formData.append('nonce', MJSK_NONCE);
+        formData.append('ref', ref);
+        formData.append('pay_amount', payAmount);
+        formData.append('total_amount', totalPrice);
+        formData.append('is_deposit', isBoat ? '1' : '');
+        formData.append('first_name', firstName);
+        formData.append('last_name', lastName);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('date', date);
+        formData.append('time', time);
+        formData.append('activities_summary', actList);
+
+        fetch(MJSK_AJAX, { method: 'POST', body: formData })
+            .then(function(r) { return r.json(); })
+            .then(function(resp) {
+                if (resp.success && resp.data.pay_url) {
+                    window.location.href = resp.data.pay_url;
+                } else {
+                    alert(resp.data && resp.data.message ? resp.data.message : 'Error creating order. Please try again.');
+                    confirmBtn.disabled = false;
+                    document.getElementById('confirmPayIcon').className = 'fas fa-lock';
+                    document.getElementById('confirmPayText').textContent = origBtnText;
+                }
+            })
+            .catch(function() {
+                alert('Connection error. Please try again.');
+                confirmBtn.disabled = false;
+                document.getElementById('confirmPayIcon').className = 'fas fa-lock';
+                document.getElementById('confirmPayText').textContent = origBtnText;
+            });
     }
 
     
@@ -2282,7 +2320,7 @@
         lines.push(T.racingNamePrompt + ': ' + firstName + ' ' + lastName);
         lines.push(T.msgEmail + ': ' + email);
         lines.push(T.msgPhone + ': ' + phone);
-        if (id) lines.push('Carte d'identité/Passeport : ' + id);
+        if (id) lines.push('Carte d´identité/Passport : ' + id);
         if (notes) lines.push('Notes : ' + notes);
         lines.push('');
         lines.push(T.msgSentFrom);

@@ -255,6 +255,231 @@
     color: var(--primary, #00b4d8);
 }
 
+/* ─── Order Pay (Checkout Payment) Page ─── */
+
+/* Hide promo banner on WooCommerce pages */
+.woocommerce-checkout .hero-promo-overlay,
+.woocommerce-page .hero-promo-overlay {
+    display: none !important;
+}
+
+#main-content > .woocommerce {
+    max-width: 640px;
+    margin: 120px auto 80px;
+    padding: 0 24px;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+}
+
+/* Page heading — per language */
+#main-content > .woocommerce::before {
+    display: block;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark, #0a1628);
+    margin-bottom: 32px;
+    letter-spacing: -0.3px;
+}
+.lang-en #main-content > .woocommerce::before { content: 'Secure Payment'; }
+.lang-es #main-content > .woocommerce::before { content: 'Pago Seguro'; }
+.lang-fr #main-content > .woocommerce::before { content: 'Paiement S\e9curis\e9'; }
+.lang-nl #main-content > .woocommerce::before { content: 'Veilige Betaling'; }
+
+#main-content > .woocommerce #order_review {
+    background: var(--white, #fff);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Hide the empty tbody and confusing Subtotal 0€ row */
+#main-content > .woocommerce .shop_table tbody {
+    display: none;
+}
+#main-content > .woocommerce .shop_table tfoot tr:first-child {
+    display: none;
+}
+
+/* Order summary table */
+#main-content > .woocommerce .shop_table {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+#main-content > .woocommerce .shop_table thead th {
+    background: var(--dark, #0a1628);
+    color: var(--white, #fff);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 16px 24px;
+    border: none;
+    font-size: 0;
+}
+#main-content > .woocommerce .shop_table thead th::after {
+    font-size: 13px;
+}
+/* Column headers — per language */
+.lang-en #main-content > .woocommerce .shop_table thead th.product-name::after { content: 'ITEM'; }
+.lang-en #main-content > .woocommerce .shop_table thead th.product-quantity::after { content: 'QTY'; }
+.lang-en #main-content > .woocommerce .shop_table thead th.product-total::after { content: 'TOTAL'; }
+.lang-es #main-content > .woocommerce .shop_table thead th.product-name::after { content: 'PRODUCTO'; }
+.lang-es #main-content > .woocommerce .shop_table thead th.product-quantity::after { content: 'CANTIDAD'; }
+.lang-es #main-content > .woocommerce .shop_table thead th.product-total::after { content: 'TOTAL'; }
+.lang-fr #main-content > .woocommerce .shop_table thead th.product-name::after { content: 'ARTICLE'; }
+.lang-fr #main-content > .woocommerce .shop_table thead th.product-quantity::after { content: 'QT\c9'; }
+.lang-fr #main-content > .woocommerce .shop_table thead th.product-total::after { content: 'TOTAL'; }
+.lang-nl #main-content > .woocommerce .shop_table thead th.product-name::after { content: 'ARTIKEL'; }
+.lang-nl #main-content > .woocommerce .shop_table thead th.product-quantity::after { content: 'AANTAL'; }
+.lang-nl #main-content > .woocommerce .shop_table thead th.product-total::after { content: 'TOTAAL'; }
+
+#main-content > .woocommerce .shop_table tfoot tr {
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+#main-content > .woocommerce .shop_table tfoot th,
+#main-content > .woocommerce .shop_table tfoot td {
+    padding: 14px 24px;
+    font-size: 15px;
+    color: var(--gray-800, #1f2937);
+    border: none;
+}
+
+#main-content > .woocommerce .shop_table tfoot tr:last-child th,
+#main-content > .woocommerce .shop_table tfoot tr:last-child td {
+    padding-bottom: 24px;
+}
+
+/* Total row emphasis */
+#main-content > .woocommerce .shop_table tfoot .woocommerce-Price-amount {
+    font-weight: 700;
+    color: var(--primary, #00b4d8);
+    font-size: 16px;
+}
+
+/* Payment section */
+#main-content > .woocommerce #payment {
+    background: linear-gradient(180deg, #f8fbff 0%, #fff 100%);
+    border-radius: 0 0 20px 20px;
+    border: none;
+    padding: 32px 24px 24px;
+}
+
+#main-content > .woocommerce #payment ul.payment_methods {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    border: none;
+}
+
+#main-content > .woocommerce #payment .payment_method_redsys {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+}
+
+#main-content > .woocommerce #payment .payment_method_redsys label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--dark, #0a1628);
+    cursor: pointer;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: var(--white, #fff);
+    border: 2px solid var(--primary, #00b4d8);
+    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.1);
+}
+
+#main-content > .woocommerce #payment .payment_method_redsys label img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(0, 180, 216, 0.2);
+}
+
+#main-content > .woocommerce #payment .payment_method_redsys input[type="radio"] {
+    display: none;
+}
+
+#main-content > .woocommerce #payment .payment_box {
+    background: rgba(0, 180, 216, 0.04);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin: 12px 0 0;
+    color: var(--gray-500, #6b7280);
+    font-size: 14px;
+    line-height: 1.6;
+    border: none;
+}
+
+#main-content > .woocommerce #payment .payment_box::before {
+    display: none;
+}
+
+/* Privacy note */
+#main-content > .woocommerce .woocommerce-privacy-policy-text {
+    margin-bottom: 20px;
+}
+
+#main-content > .woocommerce .woocommerce-privacy-policy-text p {
+    font-size: 13px;
+    color: var(--gray-500, #6b7280);
+    line-height: 1.6;
+}
+
+#main-content > .woocommerce .woocommerce-privacy-policy-text a {
+    color: var(--primary, #00b4d8);
+    text-decoration: underline;
+}
+
+/* Pay button */
+#main-content > .woocommerce #place_order,
+#main-content > .woocommerce button.button.alt {
+    display: block;
+    width: 100%;
+    background: var(--gradient-primary, linear-gradient(135deg, #00b4d8 0%, #0096c7 50%, #00cec9 100%));
+    color: white;
+    border: none;
+    border-radius: var(--button-radius, 50px);
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: var(--font-primary, 'Montserrat', sans-serif);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+    margin-top: 8px;
+}
+
+#main-content > .woocommerce #place_order:hover,
+#main-content > .woocommerce button.button.alt:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+}
+
+/* Trust badges below button — per language */
+#main-content > .woocommerce #order_review::after {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: var(--gray-500, #6b7280);
+    padding: 16px 24px 20px;
+    letter-spacing: 0.3px;
+}
+.lang-en #main-content > .woocommerce #order_review::after { content: '\1f512 Secure 256-bit SSL  \b7  \1f6e1\fe0f Servired/Redsys'; }
+.lang-es #main-content > .woocommerce #order_review::after { content: '\1f512 SSL seguro de 256 bits  \b7  \1f6e1\fe0f Servired/Redsys'; }
+.lang-fr #main-content > .woocommerce #order_review::after { content: '\1f512 SSL s\e9curis\e9 256 bits  \b7  \1f6e1\fe0f Servired/Redsys'; }
+.lang-nl #main-content > .woocommerce #order_review::after { content: '\1f512 Veilige 256-bit SSL  \b7  \1f6e1\fe0f Servired/Redsys'; }
+
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
     .woocommerce div.product .product_title {
@@ -265,5 +490,27 @@
     }
     .woocommerce ul.products li.product {
         margin-bottom: 20px;
+    }
+    #main-content > .woocommerce {
+        margin-top: 100px;
+        margin-bottom: 40px;
+        padding: 0 16px;
+    }
+    #main-content > .woocommerce .shop_table thead th {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+    #main-content > .woocommerce .shop_table tfoot th,
+    #main-content > .woocommerce .shop_table tfoot td {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    #main-content > .woocommerce #payment {
+        padding: 24px 16px 20px;
+    }
+    #main-content > .woocommerce #place_order,
+    #main-content > .woocommerce button.button.alt {
+        font-size: 16px;
+        padding: 16px 32px;
     }
 }
